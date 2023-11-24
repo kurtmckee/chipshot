@@ -1,0 +1,105 @@
+# Poetry
+# ------
+
+[build-system]
+requires = ["poetry-core>=1.5.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "chipshot"
+version = "0.1.0"
+description = "Set up game-winning headers!"
+readme = "README.rst"
+authors = ["Kurt McKee <contactme@kurtmckee.org>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = ">=3.8"
+click = "*"
+importlib_resources = { version = "*", python = "<3.9" }
+jinja2 = "*"
+tomli = { version = "*", python = "<3.11" }
+
+[tool.poetry.group.testing.dependencies]
+coverage = { version = "*", extras = ["toml"] }
+pyfakefs = "*"
+pytest = "*"
+pytest-randomly = "*"
+
+[tool.poetry.group.type-linting.dependencies]
+mypy = "*"
+
+[tool.poetry.scripts]
+chipshot = "chipshot.cli:run"
+
+
+# Chipshot
+# --------
+
+[tool.chipshot]
+template_root = "assets/headers"
+template = "global.txt"
+
+
+# Coverage
+# --------
+
+[tool.coverage.run]
+relative_files = true
+parallel = true
+branch = true
+source = [
+    "chipshot",
+    "tests",
+]
+
+[tool.coverage.paths]
+source = [
+    "src",
+    "*/site-packages",
+]
+
+[tool.coverage.report]
+skip_covered = true
+fail_under = 82
+
+
+# Mypy
+# ----
+
+[tool.mypy]
+packages = "chipshot"
+strict = true
+sqlite_cache = true
+
+
+# Scriv
+# -----
+
+[tool.scriv]
+version = "literal: pyproject.toml: tool.poetry.version"
+categories = [
+    "Python support",
+    "Added",
+    "Fixed",
+    "Removed",
+    "Changed",
+    "Deprecated",
+    "Security",
+]
+entry_title_template = "{{ version }} - {{ date.strftime('%Y-%m-%d') }}"
+format = "rst"
+fragment_directory = "changelog.d"
+insert_marker = "scriv-insert-here"
+main_branches = ["main", "releases"]
+new_fragment_template = "file: fragment-template.rst.txt"
+
+
+# Pytest
+# ------
+
+[tool.pytest.ini_options]
+addopts = "--color=yes"
+filterwarnings = [
+    "error",
+]

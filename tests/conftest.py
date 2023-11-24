@@ -1,0 +1,49 @@
+import copy
+import pathlib
+
+import pytest
+
+import chipshot.config
+import chipshot.shared
+
+
+@pytest.fixture(scope="session")
+def _load_default_config_once():
+    return chipshot.config.load()
+
+
+@pytest.fixture
+def default_config(_load_default_config_once):
+    return copy.deepcopy(_load_default_config_once)
+
+
+@pytest.fixture
+def bogus_file():
+    info = chipshot.shared.FileInfo(
+        path=pathlib.Path("bogus.bogus.bogus"),
+        raw_contents=b"",
+    )
+    yield info
+
+
+@pytest.fixture
+def bogus_config(default_config):
+    default_config["extension"].update(
+        {
+            "bogus": {},
+            "bogus.bogus": {},
+        }
+    )
+    default_config["style"].update(
+        {
+            "bogus": {},
+            "bogus.bogus": {},
+        }
+    )
+    default_config["prolog"].update(
+        {
+            "bogus": {},
+            "bogus.bogus": {},
+        }
+    )
+    yield default_config

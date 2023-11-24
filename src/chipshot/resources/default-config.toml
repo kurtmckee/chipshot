@@ -1,0 +1,209 @@
+[default.style]
+# Explicit defaults for all style sections.
+block_prefix = ""
+block_suffix = ""
+line_prefix = ""
+line_suffix = ""
+
+[default.file_info]
+encoding = "utf-8"
+
+[default.prolog]
+pattern = ""
+
+
+# Prologs
+# -------
+
+[prolog.hashbang]
+pattern = "^#!.+$"
+
+[prolog.html_doctype]
+pattern = "(?i)^<\\!doctype(.|\\n)+>$"
+
+[prolog.xhtml_declaration_and_doctype]
+pattern = "^(<\\?xml(.|\\n)+\\?>)?\\s*(?i)(^<\\!doctype(.|\\n)+>)?$"
+
+[prolog.xml_declaration]
+pattern = "^<\\?xml(.|\\n)+\\?>$"
+
+
+
+# Styles
+# ------
+
+[style.apostrophe]
+line_prefix = "' "
+
+[style.batch]
+line_prefix = "rem "
+
+[style.dash-dash]
+line_prefix = "-- "
+
+[style.hash]
+line_prefix = "# "
+
+[style.html]
+block_prefix = "<!--\n"
+line_prefix = "    "
+block_suffix = "\n-->"
+
+[style.jinja]
+block_prefix = "{#\n"
+block_suffix = "\n#}"
+
+[style.mustache]
+block_prefix = "{{!\n"
+block_suffix = "\n}}"
+
+[style.percent]
+line_prefix = "% "
+
+[style.percent-percent]
+line_prefix = "%% "
+
+[style.restructured-text]
+block_prefix = "..\n"
+line_prefix = "    "
+
+[style.semicolon]
+line_prefix = "; "
+
+[style.slash-slash]
+line_prefix = "// "
+
+[style.slash-star]
+block_prefix = "/*\n"
+line_prefix = " * "
+block_suffix = "\n */"
+
+[style.xml]
+block_prefix = "<!--\n"
+line_prefix = "    "
+block_suffix = "\n-->"
+
+
+# Extensions
+# ----------
+
+[extension.adoc]
+style = "slash-slash"
+
+[extension.ahk]
+style = "semicolon"
+
+[extension.bat]
+style = "batch"
+
+[extension.c]
+style = "slash-star"
+
+[extension.cmd]
+style = "batch"
+
+[extension.cpp]
+style = "slash-slash"
+
+[extension.cs]
+style = "slash-slash"
+
+[extension.css]
+style = "slash-star"
+
+[extension.go]
+style = "slash-slash"
+
+[extension.groovy]
+style = "slash-slash"
+
+[extension.h]
+style = "slash-slash"
+
+[extension.htm]
+style = "html"
+prolog = "html_doctype"
+
+[extension.html]
+style = "html"
+prolog = "html_doctype"
+
+[extension.java]
+style = "slash-slash"
+
+[extension.jinja]
+style = "jinja"
+
+[extension.js]
+prolog = "hashbang"
+style = "slash-slash"
+
+[extension.kt]
+style = "slash-slash"
+
+[extension.kts]
+style = "slash-slash"
+
+[extension.markdown]
+style = "xml"
+
+[extension.md]
+style = "xml"
+
+[extension.mermaid]
+style = "percent-percent"
+
+[extension.ps1]
+style = "hash"
+prolog = "hashbang"
+
+[extension.py]
+style = "hash"
+prolog = "hashbang"
+
+[extension.r]
+style = "hash"
+prolog = "hashbang"
+
+[extension.rb]
+style = "hash"
+prolog = "hashbang"
+
+[extension.rs]
+style = "slash-slash"
+
+[extension.rst]
+style = "restructured-text"
+
+[extension.sc]
+style = "slash-slash"
+
+[extension.scala]
+style = "slash-slash"
+
+[extension.sh]
+style = "hash"
+prolog = "hashbang"
+
+[extension.sql]
+style = "dash-dash"
+
+[extension.swift]
+style = "slash-slash"
+
+[extension.ts]
+style = "slash-slash"
+
+[extension.ttl]
+style = "semicolon"
+
+[extension.vbs]
+style = "apostrophe"
+
+[extension.xhtml]
+style = "xml"
+prolog = "xhtml_declaration_and_doctype"
+
+[extension.xml]
+style = "xml"
+prolog = "xml_declaration"

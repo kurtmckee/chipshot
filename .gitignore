@@ -1,0 +1,8 @@
+/.tox/
+/.pytest_cache/
+/dist/
+/venv/
+/.coverage.*
+/.coverage
+
+__pycache__/
