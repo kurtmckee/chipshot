@@ -22,3 +22,20 @@ Please see the fragment files in the `changelog.d directory`_.
 ..  _changelog.d directory: https://github.com/kurtmckee/chipshot/tree/main/changelog.d
 
 ..  scriv-insert-here
+
+.. _changelog-0.1.0:
+
+0.1.0 - 2023-11-24
+==================
+
+Initial release
+---------------
+
+*   Support Python 3.8 and higher.
+*   Detect and retain existing byte order marks in files.
+*   Detect and retain existing newlines in files.
+*   Detect and retain existing headers in files
+    that are sufficiently dissimilar to the rendered header.
+*   Detect and retain existing prologs in files
+    (like hashbangs in scripts, or XML declarations).
+*   Support custom header styles by file extension.
