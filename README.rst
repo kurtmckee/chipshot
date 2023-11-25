@@ -49,3 +49,23 @@ Next, add the following configuration to ``pyproject.toml``:
 
 You can then run ``chipshot path1 path2`` to see what files will be modified.
 If you're satisfied, run ``chipshot --update path1 path2`` to update the files.
+
+
+Pre-commit hooks
+================
+
+Chipshot offers two pre-commit hooks to help you manage your projects:
+
+*   ``check-headers``
+*   ``update-headers``
+
+Here's a sample configuration for ensuring your files have correct headers:
+
+..  code-block:: yaml
+
+    # .pre-commit-config.yaml
+    repos:
+      - repo: 'https://github.com/kurtmckee/chipshot'
+        rev: 'main'
+        hooks:
+          - id: 'update-headers'
