@@ -1,0 +1,11 @@
+- description: 'Check file headers are correct using Chipshot.'
+  id: 'check-headers'
+  name: 'Chipshot - Check headers'
+  entry: 'chipshot'
+  language: 'python'
+
+- description: 'Update file headers, if needed, using Chipshot.'
+  id: 'update-headers'
+  name: 'Chipshot - Update headers'
+  entry: 'chipshot --update'
+  language: 'python'

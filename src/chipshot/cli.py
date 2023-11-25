@@ -10,6 +10,7 @@ import textwrap
 import typing
 
 import click
+import click.exceptions
 
 from . import compare, config, logger, reader, render, writer
 
@@ -48,6 +49,8 @@ from . import compare, config, logger, reader, render, writer
 def run(config_file: str | None, update: bool, debug: bool, paths: tuple[str]) -> None:
     """Chipshot -- Set up game-winning headers!"""
 
+    files_updated = False
+
     # Set up logging.
     logger.setup(enable_debug=debug)
     log = logging.getLogger(__name__)
@@ -76,6 +79,7 @@ def run(config_file: str | None, update: bool, debug: bool, paths: tuple[str]) -
         # If this is a net-new header, log that information.
         if info.header and not info.original_header:
             log.info(f"{path}: Adding header (no original header found)")
+            files_updated = True
 
         # If there is an existing header, it might be kept or replaced.
         else:
@@ -84,13 +88,18 @@ def run(config_file: str | None, update: bool, debug: bool, paths: tuple[str]) -
             # If the headers are sufficiently similar, replace the existing header.
             if similarity > 0.90:
                 log.info(f"{path}: Updating header ({percentage} similarity)")
+                files_updated = True
                 info.original_header = ""
             # The headers are sufficiently different. Keep the original header.
             else:
                 log.info(f"{path}: Adding header ({percentage} similarity)")
+                files_updated = True
 
         if update:
             writer.write(info)
+
+    if files_updated:
+        raise click.exceptions.Exit(1)
 
 
 def _get_files(
