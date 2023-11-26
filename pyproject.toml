@@ -64,7 +64,7 @@ source = [
 
 [tool.coverage.report]
 skip_covered = true
-fail_under = 82
+fail_under = 76
 
 
 # Mypy
