@@ -10,6 +10,8 @@ import typing as t
 
 import jinja2
 
+import chipshot.exceptions
+
 
 def render_header(file: pathlib.Path, configuration: dict[str, t.Any]) -> str:
     """Render a (possibly file-specific) template into a header."""
@@ -21,21 +23,41 @@ def render_header(file: pathlib.Path, configuration: dict[str, t.Any]) -> str:
     suffix_config = configuration["extension"].get(suffix, {})
 
     # Look for the correct template to load.
-    template_root = configuration.get("template_root", "")
-    template_path = (
-        suffixes_config.get("template")
-        or suffix_config.get("template")
-        or configuration["template"]
-    )
-    template = pathlib.Path(template_root) / template_path
+    jinja_loader: jinja2.DictLoader | jinja2.FileSystemLoader
+    # Check for a literal template or a template path for the file's suffixes config.
+    if "template" in suffixes_config:
+        template_name = "literal"
+        jinja_loader = jinja2.DictLoader({"literal": suffixes_config["template"]})
+    elif "template_path" in suffixes_config:
+        template_path = pathlib.Path(suffixes_config["template_path"])
+        template_name = template_path.name
+        jinja_loader = jinja2.FileSystemLoader(template_path.parent)
+    # Check for a literal template or a template path for the file's suffix config.
+    elif "template" in suffix_config:
+        template_name = "literal"
+        jinja_loader = jinja2.DictLoader({"literal": suffix_config["template"]})
+    elif "template_path" in suffix_config:
+        template_path = pathlib.Path(suffix_config["template_path"])
+        template_name = template_path.name
+        jinja_loader = jinja2.FileSystemLoader(template_path.parent)
+    # Check for a literal template or a template path in the global config.
+    elif "template" in configuration:
+        template_name = "literal"
+        jinja_loader = jinja2.DictLoader({"literal": configuration["template"]})
+    elif "template_path" in configuration:
+        template_path = pathlib.Path(configuration["template_path"])
+        template_name = template_path.name
+        jinja_loader = jinja2.FileSystemLoader(template_path.parent)
+    else:
+        raise chipshot.exceptions.NoTemplateDefined
 
     # Render the template.
     env = jinja2.Environment(
-        loader=jinja2.FileSystemLoader(template.parent),
+        loader=jinja_loader,
         undefined=jinja2.StrictUndefined,
     )
-    template = env.get_template(template.name)
-    rendered_template: bytes = template.render(
+    template = env.get_template(template_name)
+    rendered_template: str = template.render(
         {
             "year": datetime.datetime.now().strftime("%Y"),
         },

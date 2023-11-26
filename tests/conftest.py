@@ -9,7 +9,8 @@ import chipshot.shared
 
 @pytest.fixture(scope="session")
 def _load_default_config_once():
-    return chipshot.config.load()
+    defaults = chipshot.config._load_default_config()
+    return chipshot.config._normalize_config(defaults)
 
 
 @pytest.fixture
