@@ -39,13 +39,16 @@ You can use ``{{ year }}`` as a stand-in for the current year.
     Released under the terms of the MIT license.
     SPDX-License-Identifier: MIT
 
-Next, add the following configuration to ``pyproject.toml``:
+Then, add the following configuration to ``pyproject.toml``:
 
 ..  code-block:: toml
 
     [tool.chipshot]
-    template_root = "assets/headers"
-    template = "global.txt"
+    template = """
+    Copyright 2021-{{ date }} Developer or Company
+    Released under the terms of the MIT license.
+    SPDX-License-Identifier: MIT
+    """
 
 You can then run ``chipshot path1 path2`` to see what files will be modified.
 If you're satisfied, run ``chipshot --update path1 path2`` to update the files.

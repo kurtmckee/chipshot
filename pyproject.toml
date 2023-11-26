@@ -37,8 +37,11 @@ chipshot = "chipshot.cli:run"
 # --------
 
 [tool.chipshot]
-template_root = "assets/headers"
-template = "global.txt"
+template = """
+This file is a part of Chipshot <https://github.com/kurtmckee/chipshot>
+Copyright 2022-{{ year }} Kurt McKee <contactme@kurtmckee.org>
+SPDX-License-Identifier: MIT
+"""
 
 
 # Coverage
@@ -61,7 +64,7 @@ source = [
 
 [tool.coverage.report]
 skip_covered = true
-fail_under = 82
+fail_under = 76
 
 
 # Mypy

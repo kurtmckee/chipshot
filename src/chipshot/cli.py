@@ -25,34 +25,39 @@ from . import compare, config, logger, reader, render, writer
         """
         The Chipshot configuration file to use.
 
-        If unspecified, 'pyproject.toml' in the current directory will be loaded.
+        If unspecified, '.chipshot.toml' in the current directory will be loaded.
+        If that doesn't exist, 'pyproject.toml' will be tried next.
+
         Chipshot's default values will always be loaded first.
     """
     ),
     type=click.Path(exists=True, file_okay=True, dir_okay=False),
 )
 @click.option(
-    "--debug",
-    is_flag=True,
-    help="Enable logging of debug messages.",
-)
-@click.option(
     "--update",
     is_flag=True,
     help="Update files in-place.",
+)
+@click.option(
+    "-v",
+    "--verbose",
+    is_flag=True,
+    help="Enable verbose output.",
 )
 @click.argument(
     "paths",
     nargs=-1,
     type=click.Path(exists=True, file_okay=True, dir_okay=True),
 )
-def run(config_file: str | None, update: bool, debug: bool, paths: tuple[str]) -> None:
+def run(
+    config_file: str | None, update: bool, verbose: bool, paths: tuple[str]
+) -> None:
     """Chipshot -- Set up game-winning headers!"""
 
     files_updated = False
 
     # Set up logging.
-    logger.setup(enable_debug=debug)
+    logger.setup(enable_debug=verbose)
     log = logging.getLogger(__name__)
 
     # Load the configuration.
