@@ -25,7 +25,9 @@ from . import compare, config, logger, reader, render, writer
         """
         The Chipshot configuration file to use.
 
-        If unspecified, 'pyproject.toml' in the current directory will be loaded.
+        If unspecified, '.chipshot.toml' in the current directory will be loaded.
+        If that doesn't exist, 'pyproject.toml' will be tried next.
+
         Chipshot's default values will always be loaded first.
     """
     ),
