@@ -26,26 +26,13 @@ but can be configured to support those, too.
 Sample configuration
 ====================
 
-Create a directory that will contain your header template.
-For example, the directory might be named ``assets/headers``.
-
-Then, create a text file that will contain your header template,
-such as ``global.txt``.
-You can use ``{{ year }}`` as a stand-in for the current year.
-
-..  code-block:: text
-
-    Copyright 2021-{{ date }} Developer or Company
-    Released under the terms of the MIT license.
-    SPDX-License-Identifier: MIT
-
-Then, add the following configuration to ``pyproject.toml``:
+Create a file named ``.chipshot.toml`` with the following content:
 
 ..  code-block:: toml
 
-    [tool.chipshot]
+    [chipshot]
     template = """
-    Copyright 2021-{{ date }} Developer or Company
+    Copyright 2021-{{ year }} Developer or Company
     Released under the terms of the MIT license.
     SPDX-License-Identifier: MIT
     """

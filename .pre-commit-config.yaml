@@ -50,9 +50,9 @@ repos:
         # The README contains YAML that isn't indented using 4 spaces.
         exclude: 'README.rst'
 
-#  - repo: 'https://github.com/python-jsonschema/check-jsonschema'
-#    rev: '0.27.1'
-#    hooks:
+  - repo: 'https://github.com/python-jsonschema/check-jsonschema'
+    rev: '0.27.2'
+    hooks:
+      - id: 'check-readthedocs'
 #      - id: 'check-dependabot'
 #      - id: 'check-github-workflows'
-#      - id: 'check-readthedocs'

@@ -1,5 +1,6 @@
 /.tox/
 /.pytest_cache/
+/build/
 /dist/
 /venv/
 /.coverage.*

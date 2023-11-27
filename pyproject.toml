@@ -29,6 +29,9 @@ pytest-randomly = "*"
 [tool.poetry.group.mypy.dependencies]
 mypy = "*"
 
+[tool.poetry.group.docs.dependencies]
+sphinx = { version = "*", python = "3.12" }
+
 [tool.poetry.scripts]
 chipshot = "chipshot.cli:run"
 
