@@ -7,11 +7,13 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "chipshot"
-version = "0.1.0"
+version = "0.2.0"
 description = "Set up game-winning headers!"
 readme = "README.rst"
 authors = ["Kurt McKee <contactme@kurtmckee.org>"]
 license = "MIT"
+repository = "https://github.com/kurtmckee/chipshot"
+documentation = "https://chipshot.readthedocs.io"
 
 [tool.poetry.dependencies]
 python = ">=3.8"
