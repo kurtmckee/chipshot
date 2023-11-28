@@ -23,6 +23,36 @@ Please see the fragment files in the `changelog.d directory`_.
 
 ..  scriv-insert-here
 
+.. _changelog-0.2.0:
+
+0.2.0 - 2023-11-28
+==================
+
+Added
+-----
+
+*   Add two pre-commit hooks: ``check-headers`` and ``update-headers``.
+
+Changed
+-------
+
+*   Allow template literals in the config file using the ``template`` key.
+
+    Paths to template files can be defined in the ``template_path`` key.
+
+*   When no configuration file is specified,
+    ``.chipshot.toml`` will be loaded first (if it exists).
+
+    ``pyproject.toml`` will still be loaded as a fallback
+    if ``.chipshot.toml`` doesn't exist.
+
+*   Rename the ``--debug`` flag to ``--verbose``.
+
+Documentation
+-------------
+
+*   Add initial documentation.
+
 .. _changelog-0.1.0:
 
 0.1.0 - 2023-11-24
