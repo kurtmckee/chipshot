@@ -17,6 +17,13 @@ from . import compare, config, logger, reader, render, writer
 
 @click.command()
 @click.help_option("-h", "--help")
+@click.version_option(
+    None,
+    "-V",
+    "--version",
+    prog_name="Chipshot",
+    message="%(prog)s v%(version)s",
+)
 @click.option(
     "-c",
     "--config",
