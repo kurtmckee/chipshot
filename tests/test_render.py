@@ -14,12 +14,7 @@ rendered_files = [
 
 @pytest.mark.parametrize("rendered_file", rendered_files)
 def test_render_header(default_config, rendered_file: pathlib.Path):
-    default_config.update(
-        {
-            "template_root": str(rendered_file.parent),
-            "template": "template.txt",
-        }
-    )
+    default_config.update({"template_path": str(rendered_file.parent / "template.txt")})
     expected = rendered_file.read_text()
     rendered = csr.render_header(rendered_file, default_config)
     fail_message = textwrap.dedent(

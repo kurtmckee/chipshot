@@ -26,26 +26,36 @@ but can be configured to support those, too.
 Sample configuration
 ====================
 
-Create a directory that will contain your header template.
-For example, the directory might be named ``assets/headers``.
-
-Then, create a text file that will contain your header template,
-such as ``global.txt``.
-You can use ``{{ year }}`` as a stand-in for the current year.
-
-..  code-block:: text
-
-    Copyright 2021-{{ date }} Developer or Company
-    Released under the terms of the MIT license.
-    SPDX-License-Identifier: MIT
-
-Next, add the following configuration to ``pyproject.toml``:
+Create a file named ``.chipshot.toml`` with the following content:
 
 ..  code-block:: toml
 
-    [tool.chipshot]
-    template_root = "assets/headers"
-    template = "global.txt"
+    [chipshot]
+    template = """
+    Copyright 2021-{{ year }} Developer or Company
+    Released under the terms of the MIT license.
+    SPDX-License-Identifier: MIT
+    """
 
 You can then run ``chipshot path1 path2`` to see what files will be modified.
 If you're satisfied, run ``chipshot --update path1 path2`` to update the files.
+
+
+Pre-commit hooks
+================
+
+Chipshot offers two pre-commit hooks to help you manage your projects:
+
+*   ``check-headers``
+*   ``update-headers``
+
+Here's a sample configuration for ensuring your files have correct headers:
+
+..  code-block:: yaml
+
+    # .pre-commit-config.yaml
+    repos:
+      - repo: 'https://github.com/kurtmckee/chipshot'
+        rev: 'main'
+        hooks:
+          - id: 'update-headers'

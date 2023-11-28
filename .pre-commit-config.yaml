@@ -41,16 +41,18 @@ repos:
     hooks:
       - id: 'flake8'
         additional_dependencies:
-          - 'flake8-bugbear==23.9.16'
+          - 'flake8-bugbear==23.11.26'
 
   - repo: 'https://github.com/editorconfig-checker/editorconfig-checker.python'
     rev: '2.7.3'
     hooks:
       - id: 'editorconfig-checker'
+        # The README contains YAML that isn't indented using 4 spaces.
+        exclude: 'README.rst'
 
-#  - repo: 'https://github.com/python-jsonschema/check-jsonschema'
-#    rev: '0.27.1'
-#    hooks:
+  - repo: 'https://github.com/python-jsonschema/check-jsonschema'
+    rev: '0.27.2'
+    hooks:
+      - id: 'check-readthedocs'
 #      - id: 'check-dependabot'
 #      - id: 'check-github-workflows'
-#      - id: 'check-readthedocs'

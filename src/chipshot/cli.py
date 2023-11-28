@@ -10,12 +10,20 @@ import textwrap
 import typing
 
 import click
+import click.exceptions
 
 from . import compare, config, logger, reader, render, writer
 
 
 @click.command()
 @click.help_option("-h", "--help")
+@click.version_option(
+    None,
+    "-V",
+    "--version",
+    prog_name="Chipshot",
+    message="%(prog)s v%(version)s",
+)
 @click.option(
     "-c",
     "--config",
@@ -24,32 +32,39 @@ from . import compare, config, logger, reader, render, writer
         """
         The Chipshot configuration file to use.
 
-        If unspecified, 'pyproject.toml' in the current directory will be loaded.
+        If unspecified, '.chipshot.toml' in the current directory will be loaded.
+        If that doesn't exist, 'pyproject.toml' will be tried next.
+
         Chipshot's default values will always be loaded first.
     """
     ),
     type=click.Path(exists=True, file_okay=True, dir_okay=False),
 )
 @click.option(
-    "--debug",
-    is_flag=True,
-    help="Enable logging of debug messages.",
-)
-@click.option(
     "--update",
     is_flag=True,
     help="Update files in-place.",
+)
+@click.option(
+    "-v",
+    "--verbose",
+    is_flag=True,
+    help="Enable verbose output.",
 )
 @click.argument(
     "paths",
     nargs=-1,
     type=click.Path(exists=True, file_okay=True, dir_okay=True),
 )
-def run(config_file: str | None, update: bool, debug: bool, paths: tuple[str]) -> None:
+def run(
+    config_file: str | None, update: bool, verbose: bool, paths: tuple[str]
+) -> None:
     """Chipshot -- Set up game-winning headers!"""
 
+    files_updated = False
+
     # Set up logging.
-    logger.setup(enable_debug=debug)
+    logger.setup(enable_debug=verbose)
     log = logging.getLogger(__name__)
 
     # Load the configuration.
@@ -76,6 +91,7 @@ def run(config_file: str | None, update: bool, debug: bool, paths: tuple[str]) -
         # If this is a net-new header, log that information.
         if info.header and not info.original_header:
             log.info(f"{path}: Adding header (no original header found)")
+            files_updated = True
 
         # If there is an existing header, it might be kept or replaced.
         else:
@@ -84,13 +100,18 @@ def run(config_file: str | None, update: bool, debug: bool, paths: tuple[str]) -
             # If the headers are sufficiently similar, replace the existing header.
             if similarity > 0.90:
                 log.info(f"{path}: Updating header ({percentage} similarity)")
+                files_updated = True
                 info.original_header = ""
             # The headers are sufficiently different. Keep the original header.
             else:
                 log.info(f"{path}: Adding header ({percentage} similarity)")
+                files_updated = True
 
         if update:
             writer.write(info)
+
+    if files_updated:
+        raise click.exceptions.Exit(1)
 
 
 def _get_files(

@@ -15,6 +15,10 @@ class ConfigNotFound(ChipshotError):
     """A config file was successfully loaded but no Chipshot configuration was found."""
 
 
+class NoTemplateDefined(ChipshotError):
+    """No *template* or *template_path* was found."""
+
+
 class FileDecodeError(ChipshotError):
     """A file could not be decoded."""
 

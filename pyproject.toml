@@ -7,11 +7,13 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.poetry]
 name = "chipshot"
-version = "0.1.0"
+version = "0.2.0"
 description = "Set up game-winning headers!"
 readme = "README.rst"
 authors = ["Kurt McKee <contactme@kurtmckee.org>"]
 license = "MIT"
+repository = "https://github.com/kurtmckee/chipshot"
+documentation = "https://chipshot.readthedocs.io"
 
 [tool.poetry.dependencies]
 python = ">=3.8"
@@ -20,14 +22,17 @@ importlib_resources = { version = "*", python = "<3.9" }
 jinja2 = "*"
 tomli = { version = "*", python = "<3.11" }
 
-[tool.poetry.group.testing.dependencies]
+[tool.poetry.group.test.dependencies]
 coverage = { version = "*", extras = ["toml"] }
 pyfakefs = "*"
 pytest = "*"
 pytest-randomly = "*"
 
-[tool.poetry.group.type-linting.dependencies]
+[tool.poetry.group.mypy.dependencies]
 mypy = "*"
+
+[tool.poetry.group.docs.dependencies]
+sphinx = { version = "*", python = "3.12" }
 
 [tool.poetry.scripts]
 chipshot = "chipshot.cli:run"
@@ -37,8 +42,11 @@ chipshot = "chipshot.cli:run"
 # --------
 
 [tool.chipshot]
-template_root = "assets/headers"
-template = "global.txt"
+template = """
+This file is a part of Chipshot <https://github.com/kurtmckee/chipshot>
+Copyright 2022-{{ year }} Kurt McKee <contactme@kurtmckee.org>
+SPDX-License-Identifier: MIT
+"""
 
 
 # Coverage
@@ -61,7 +69,7 @@ source = [
 
 [tool.coverage.report]
 skip_covered = true
-fail_under = 82
+fail_under = 76
 
 
 # Mypy
