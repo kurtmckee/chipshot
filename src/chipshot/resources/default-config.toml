@@ -1,30 +1,20 @@
-[default.style]
-# Explicit defaults for all style sections.
-block_prefix = ""
-block_suffix = ""
-line_prefix = ""
-line_suffix = ""
-
-[default.file_info]
+[default]
 encoding = "utf-8"
 
-[default.prolog]
-pattern = ""
 
+# Prologues
+# ---------
 
-# Prologs
-# -------
-
-[prolog.hashbang]
+[prologues.hashbang]
 pattern = "^#!.+$"
 
-[prolog.html_doctype]
+[prologues.html_doctype]
 pattern = "(?i)^<\\!doctype(.|\\n)+>$"
 
-[prolog.xhtml_declaration_and_doctype]
+[prologues.xhtml_declaration_and_doctype]
 pattern = "^(<\\?xml(.|\\n)+\\?>)?\\s*(?i)(^<\\!doctype(.|\\n)+>)?$"
 
-[prolog.xml_declaration]
+[prologues.xml_declaration]
 pattern = "^<\\?xml(.|\\n)+\\?>$"
 
 
@@ -32,53 +22,53 @@ pattern = "^<\\?xml(.|\\n)+\\?>$"
 # Styles
 # ------
 
-[style.apostrophe]
+[styles.apostrophe]
 line_prefix = "' "
 
-[style.batch]
+[styles.batch]
 line_prefix = "rem "
 
-[style.dash-dash]
+[styles.dash-dash]
 line_prefix = "-- "
 
-[style.hash]
+[styles.hash]
 line_prefix = "# "
 
-[style.html]
+[styles.html]
 block_prefix = "<!--\n"
 line_prefix = "    "
 block_suffix = "\n-->"
 
-[style.jinja]
+[styles.jinja]
 block_prefix = "{#\n"
 block_suffix = "\n#}"
 
-[style.mustache]
+[styles.mustache]
 block_prefix = "{{!\n"
 block_suffix = "\n}}"
 
-[style.percent]
+[styles.percent]
 line_prefix = "% "
 
-[style.percent-percent]
+[styles.percent-percent]
 line_prefix = "%% "
 
-[style.restructured-text]
+[styles.restructured-text]
 block_prefix = "..\n"
 line_prefix = "    "
 
-[style.semicolon]
+[styles.semicolon]
 line_prefix = "; "
 
-[style.slash-slash]
+[styles.slash-slash]
 line_prefix = "// "
 
-[style.slash-star]
+[styles.slash-star]
 block_prefix = "/*\n"
 line_prefix = " * "
 block_suffix = "\n */"
 
-[style.xml]
+[styles.xml]
 block_prefix = "<!--\n"
 line_prefix = "    "
 block_suffix = "\n-->"
@@ -122,11 +112,11 @@ style = "slash-slash"
 
 [extension.htm]
 style = "html"
-prolog = "html_doctype"
+prologue = "html_doctype"
 
 [extension.html]
 style = "html"
-prolog = "html_doctype"
+prologue = "html_doctype"
 
 [extension.java]
 style = "slash-slash"
@@ -135,7 +125,7 @@ style = "slash-slash"
 style = "jinja"
 
 [extension.js]
-prolog = "hashbang"
+prologue = "hashbang"
 style = "slash-slash"
 
 [extension.kt]
@@ -155,19 +145,19 @@ style = "percent-percent"
 
 [extension.ps1]
 style = "hash"
-prolog = "hashbang"
+prologue = "hashbang"
 
 [extension.py]
 style = "hash"
-prolog = "hashbang"
+prologue = "hashbang"
 
 [extension.r]
 style = "hash"
-prolog = "hashbang"
+prologue = "hashbang"
 
 [extension.rb]
 style = "hash"
-prolog = "hashbang"
+prologue = "hashbang"
 
 [extension.rs]
 style = "slash-slash"
@@ -183,7 +173,7 @@ style = "slash-slash"
 
 [extension.sh]
 style = "hash"
-prolog = "hashbang"
+prologue = "hashbang"
 
 [extension.sql]
 style = "dash-dash"
@@ -202,8 +192,8 @@ style = "apostrophe"
 
 [extension.xhtml]
 style = "xml"
-prolog = "xhtml_declaration_and_doctype"
+prologue = "xhtml_declaration_and_doctype"
 
 [extension.xml]
 style = "xml"
-prolog = "xml_declaration"
+prologue = "xml_declaration"

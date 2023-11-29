@@ -15,8 +15,8 @@ def write(file: FileInfo) -> None:
 
 def _render(file: FileInfo) -> bytes:
     text: str = ""
-    if file.prolog:
-        text = f"{file.prolog}{file.newlines * 2}"
+    if file.prologue:
+        text = f"{file.prologue}{file.newlines * 2}"
     if file.header:
         text += f"{file.header}{file.newlines * 2}"
     if file.original_header:

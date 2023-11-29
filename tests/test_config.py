@@ -1,7 +1,7 @@
 import pytest
 
 
-@pytest.mark.parametrize("top_level_key", ("extension", "style"))
+@pytest.mark.parametrize("top_level_key", ("extension", "styles"))
 def test_defaults_key_order_first_level(default_config, top_level_key):
     """Guarantee the default config has sorted keys."""
 

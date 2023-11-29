@@ -35,8 +35,8 @@ class InconsistentNewlines(ChipshotError):
     """The file contains multiple newline styles."""
 
 
-class PrologRequiresTrailingNewline(ChipshotError):
-    """The prolog must end with a trailing newline."""
+class PrologueRequiresTrailingNewline(ChipshotError):
+    """The prologue must end with a trailing newline."""
 
 
 class HeaderBlockRequiresTrailingNewline(ChipshotError):
