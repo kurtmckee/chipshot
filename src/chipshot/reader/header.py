@@ -8,6 +8,7 @@ import logging
 import typing as t
 
 from .. import exceptions
+from ..config import get_config_value
 from ..shared import FileInfo
 
 log = logging.getLogger(__name__)
@@ -16,19 +17,13 @@ log = logging.getLogger(__name__)
 def handle(info: FileInfo, config: dict[str, t.Any]) -> None:
     """Detect and extract an existing header."""
 
-    suffixes = "".join(info.path.suffixes)[1:]
-    suffix = "".join(info.path.suffix)[1:]
-
-    suffixes_config = config["extension"].get(suffixes, {})
-    suffix_config = config["extension"].get(suffix, {})
-
-    style: dict[str, str] | None = config["style"].get(
-        suffixes_config.get("style", ...)
-    ) or config["style"].get(suffix_config.get("style", ...))
-
-    # If no style is defined for the file, do nothing.
-    if style is None:
+    try:
+        (style_key,) = get_config_value(config, info.path, "style")
+    except KeyError:
+        # If no style is defined for the file, do nothing.
         return
+
+    style: dict[str, str] = config["styles"][style_key]
 
     # If the first non-whitespace content doesn't start with *block_prefix*,
     # there is no header.

@@ -66,6 +66,6 @@ Initial release
 *   Detect and retain existing newlines in files.
 *   Detect and retain existing headers in files
     that are sufficiently dissimilar to the rendered header.
-*   Detect and retain existing prologs in files
+*   Detect and retain existing prologues in files
     (like hashbangs in scripts, or XML declarations).
 *   Support custom header styles by file extension.

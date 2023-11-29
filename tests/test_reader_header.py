@@ -54,7 +54,7 @@ def test_find_header_line_by_line(fs, default_config):
     fs.create_file(path, contents="# 1\n# 2\n\nprint('success')")
 
     info = chipshot.reader.read(path, default_config)
-    assert info.prolog == ""
+    assert info.prologue == ""
     assert info.original_header == "# 1\n# 2"
     assert info.contents == "print('success')"
 

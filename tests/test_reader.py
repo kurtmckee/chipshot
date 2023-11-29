@@ -11,7 +11,7 @@ def test_empty_file(fs, default_config):
     assert info.raw_contents == b""
     assert info.bom == b""
     assert info.encoding == "utf-8"
-    assert info.prolog == ""
+    assert info.prologue == ""
     assert info.original_header == ""
     assert info.contents == ""
     assert info.newlines == ""
