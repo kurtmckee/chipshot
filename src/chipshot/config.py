@@ -100,13 +100,6 @@ def get_config_value(
             return_value[key_index] = config[key]
             return tuple(return_value)
 
-    # Look for the config in the 'default' values.
-    for key_index, key in enumerate(keys):
-        if key in config["default"]:
-            log.debug(f"{path}: Using '{key}' config found in the Chipshot defaults")
-            return_value[key_index] = config["default"][key]
-            return tuple(return_value)
-
     # No config was found.
     log.debug(f"{path}: No config was found for key(s): {', '.join(keys)}")
     raise KeyError
