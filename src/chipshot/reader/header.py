@@ -32,7 +32,8 @@ def handle(info: FileInfo, config: dict[str, t.Any]) -> None:
 
     # If the first non-whitespace content doesn't start with *block_prefix*,
     # there is no header.
-    if style["block_prefix"] and not info.contents.lstrip().startswith(
+    left_stripped_content = info.contents.lstrip()
+    if style["block_prefix"] and not left_stripped_content.startswith(
         style["block_prefix"].strip()
     ):
         return
@@ -55,7 +56,7 @@ def handle(info: FileInfo, config: dict[str, t.Any]) -> None:
     # Find the end of the block prefix, if any.
     scan_start = 0
     if style["block_prefix"]:
-        scan_start = info.contents.find(style["block_prefix"])
+        scan_start = left_stripped_content.find(style["block_prefix"])
         if scan_start == -1:
             return
         scan_start += len(style["block_prefix"])
@@ -71,7 +72,7 @@ def handle(info: FileInfo, config: dict[str, t.Any]) -> None:
     # Assume that a block prefix with no prefixed lines means there is no header.
     header_end_index = 0
 
-    for current_line, next_line, index in two_lines(info.contents, scan_start):
+    for current_line, next_line, index in two_lines(left_stripped_content, scan_start):
         # Keep going if the current line starts with the line prefix.
         if current_line.startswith(line_prefix):
             header_end_index = index
@@ -96,15 +97,15 @@ def handle(info: FileInfo, config: dict[str, t.Any]) -> None:
     if not header_end_index:
         return
 
-    info.original_header = info.contents[:header_end_index]
-    if info.contents[header_end_index : header_end_index + 1] != "\n":
+    info.original_header = left_stripped_content[:header_end_index]
+    if left_stripped_content[header_end_index : header_end_index + 1] != "\n":
         msg = f"{info.path}: The header block does not end with a newline."
         log.warning(msg)
-        info.contents = info.contents[header_end_index:]
-    elif info.contents[header_end_index : header_end_index + 2] == "\n\n":
-        info.contents = info.contents[header_end_index + 2 :]
+        info.contents = left_stripped_content[header_end_index:]
+    elif left_stripped_content[header_end_index : header_end_index + 2] == "\n\n":
+        info.contents = left_stripped_content[header_end_index + 2 :]
     else:  # Only 1 newline.
-        info.contents = info.contents[header_end_index + 1 :]
+        info.contents = left_stripped_content[header_end_index + 1 :]
 
 
 def two_lines(

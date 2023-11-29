@@ -14,13 +14,24 @@ variants = pytest.mark.parametrize(
 )
 
 
-def test_prolog_success(fs, default_config):
+def test_prolog_success_no_header(fs, default_config):
     path = pathlib.Path("script.sh")
     fs.create_file(path, contents=b"#!/bin/sh\n\necho success")
 
     info = chipshot.reader.read(path, default_config)
     assert info.prolog == "#!/bin/sh"
+    assert info.original_header == ""
     assert info.contents == "\necho success"
+
+
+def test_prolog_success_with_header(fs, default_config):
+    path = pathlib.Path("script.sh")
+    fs.create_file(path, contents=b"#!/bin/sh\n\n# header\n\necho success")
+
+    info = chipshot.reader.read(path, default_config)
+    assert info.prolog == "#!/bin/sh"
+    assert info.original_header == "# header"
+    assert info.contents == "echo success"
 
 
 def test_prolog_empty_pattern(bogus_file, bogus_config):
