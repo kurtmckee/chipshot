@@ -24,7 +24,7 @@ class FileInfo:
     encoding: str = ""
     newlines: newline_type = ""
     bom: bom_type = b""
-    prolog: str = ""
+    prologue: str = ""
     header: str = ""
     original_header: str = ""
     contents: str = ""

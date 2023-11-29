@@ -35,13 +35,13 @@ def bogus_config(default_config):
             "bogus.bogus": {},
         }
     )
-    default_config["style"].update(
+    default_config["styles"].update(
         {
             "bogus": {},
             "bogus.bogus": {},
         }
     )
-    default_config["prolog"].update(
+    default_config["prologues"].update(
         {
             "bogus": {},
             "bogus.bogus": {},

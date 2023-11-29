@@ -10,46 +10,29 @@ import typing as t
 
 import jinja2
 
-import chipshot.exceptions
+from . import exceptions
+from .config import get_config_value
 
 
-def render_header(file: pathlib.Path, configuration: dict[str, t.Any]) -> str:
+def render_header(file: pathlib.Path, config: dict[str, t.Any]) -> str:
     """Render a (possibly file-specific) template into a header."""
 
-    suffixes = "".join(file.suffixes)[1:]
-    suffix = file.suffix[1:]
-
-    suffixes_config = configuration["extension"].get(suffixes, {})
-    suffix_config = configuration["extension"].get(suffix, {})
-
-    # Look for the correct template to load.
+    # Look for a template or template path.
     jinja_loader: jinja2.DictLoader | jinja2.FileSystemLoader
-    # Check for a literal template or a template path for the file's suffixes config.
-    if "template" in suffixes_config:
+    try:
+        template, template_path_str = get_config_value(
+            config, file, "template", "template_path"
+        )
+    except KeyError:
+        raise exceptions.NoTemplateDefined
+
+    if template is not None:
         template_name = "literal"
-        jinja_loader = jinja2.DictLoader({"literal": suffixes_config["template"]})
-    elif "template_path" in suffixes_config:
-        template_path = pathlib.Path(suffixes_config["template_path"])
+        jinja_loader = jinja2.DictLoader({"literal": template})
+    else:  # template_path_str is not None
+        template_path = pathlib.Path(template_path_str)
         template_name = template_path.name
         jinja_loader = jinja2.FileSystemLoader(template_path.parent)
-    # Check for a literal template or a template path for the file's suffix config.
-    elif "template" in suffix_config:
-        template_name = "literal"
-        jinja_loader = jinja2.DictLoader({"literal": suffix_config["template"]})
-    elif "template_path" in suffix_config:
-        template_path = pathlib.Path(suffix_config["template_path"])
-        template_name = template_path.name
-        jinja_loader = jinja2.FileSystemLoader(template_path.parent)
-    # Check for a literal template or a template path in the global config.
-    elif "template" in configuration:
-        template_name = "literal"
-        jinja_loader = jinja2.DictLoader({"literal": configuration["template"]})
-    elif "template_path" in configuration:
-        template_path = pathlib.Path(configuration["template_path"])
-        template_name = template_path.name
-        jinja_loader = jinja2.FileSystemLoader(template_path.parent)
-    else:
-        raise chipshot.exceptions.NoTemplateDefined
 
     # Render the template.
     env = jinja2.Environment(
@@ -64,11 +47,8 @@ def render_header(file: pathlib.Path, configuration: dict[str, t.Any]) -> str:
     )
 
     # Use the most specific style possible.
-    style = (
-        configuration["style"].get(suffixes_config.get("style", ...), {})
-        or configuration["style"].get(suffix_config.get("style", ...), {})
-        or configuration["default"]["style"]
-    )
+    (style_key,) = get_config_value(config, file, "style")
+    style = config["styles"][style_key]
 
     lines: list[str] = []
     line_prefix = style["line_prefix"]

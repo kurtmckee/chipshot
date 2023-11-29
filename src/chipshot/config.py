@@ -58,6 +58,53 @@ def load(path: str | pathlib.Path | None = None) -> dict[str, t.Any]:
     return _normalize_config(config)
 
 
+def get_config_value(
+    config: dict[str, t.Any],
+    path: pathlib.Path,
+    *keys: str,
+) -> tuple[t.Any, ...]:
+    """Get the most specific config value possible for a given file path.
+
+    "Most specific" means "the greatest number of suffixes with a matching config key".
+
+    For example, if the filename is `sidebar.jinja.html`,
+    then these extensions will be tried in this order:
+
+    *   jinja.html
+    *   html
+
+    If more than one key is specified (for example, "template" and "template_path"),
+    the first key found in the most specific config will be selected.
+
+    The return value will be a tuple with the same length as the number of keys.
+
+    """
+
+    return_value = [None] * len(keys)
+
+    # Look for the config in the 'extension' values.
+    suffix_list = path.suffixes
+    for starting_index in range(len(suffix_list)):
+        extension = "".join(suffix_list[starting_index:])[1:]
+        for key_index, key in enumerate(keys):
+            if key not in config["extension"].get(extension, {}):
+                continue
+            log.debug(f"{path}: Using '{key}' config found for extension {extension}")
+            return_value[key_index] = config["extension"][extension][key]
+            return tuple(return_value)
+
+    # Look for the config in the global values.
+    for key_index, key in enumerate(keys):
+        if key in config:
+            log.debug(f"{path}: Using '{key}' config found in the global configuration")
+            return_value[key_index] = config[key]
+            return tuple(return_value)
+
+    # No config was found.
+    log.debug(f"{path}: No config was found for key(s): {', '.join(keys)}")
+    raise KeyError
+
+
 def _load_toml(path: pathlib.Path) -> dict[str, t.Any]:
     """Load configuration from a TOML file."""
 
@@ -89,9 +136,14 @@ def _normalize_config(configuration: dict[str, t.Any]) -> dict[str, t.Any]:
     """Copy default style values into each style configuration block."""
 
     result: dict[str, t.Any] = copy.deepcopy(configuration)
-    for key, style in result["style"].items():
-        value = result["default"]["style"].copy()
-        value.update(style)
-        result["style"][key] = value
+    for key, value in result["styles"].items():
+        style = {
+            "block_prefix": "",
+            "line_prefix": "",
+            "line_suffix": "",
+            "block_suffix": "",
+        }
+        style.update(value)
+        result["styles"][key] = style
 
     return result

@@ -3,7 +3,7 @@ import pathlib
 import pytest
 
 import chipshot.exceptions
-import chipshot.reader.prolog
+import chipshot.reader.prologue
 
 variants = pytest.mark.parametrize(
     "variant",
@@ -14,56 +14,67 @@ variants = pytest.mark.parametrize(
 )
 
 
-def test_prolog_success(fs, default_config):
+def test_prologue_success_no_header(fs, default_config):
     path = pathlib.Path("script.sh")
     fs.create_file(path, contents=b"#!/bin/sh\n\necho success")
 
     info = chipshot.reader.read(path, default_config)
-    assert info.prolog == "#!/bin/sh"
+    assert info.prologue == "#!/bin/sh"
+    assert info.original_header == ""
     assert info.contents == "\necho success"
 
 
-def test_prolog_empty_pattern(bogus_file, bogus_config):
+def test_prologue_success_with_header(fs, default_config):
+    path = pathlib.Path("script.sh")
+    fs.create_file(path, contents=b"#!/bin/sh\n\n# header\n\necho success")
+
+    info = chipshot.reader.read(path, default_config)
+    assert info.prologue == "#!/bin/sh"
+    assert info.original_header == "# header"
+    assert info.contents == "echo success"
+
+
+def test_prologue_empty_pattern(bogus_file, bogus_config):
     bogus_file.contents = "anything"
-    bogus_config["extension"]["bogus"]["prolog"] = "bogus"
-    bogus_config["prolog"]["bogus"]["pattern"] = ""
+    bogus_config["extension"]["bogus"]["prologue"] = "bogus"
+    bogus_config["prologues"]["bogus"]["pattern"] = ""
 
-    chipshot.reader.prolog.handle(bogus_file, bogus_config)
+    chipshot.reader.prologue.handle(bogus_file, bogus_config)
 
-    assert bogus_file.prolog == ""
+    assert bogus_file.prologue == ""
     assert bogus_file.contents == "anything"
 
 
 @variants
-def test_prolog_not_first_line(bogus_file, bogus_config, variant, caplog):
+def test_prologue_not_first_line(bogus_file, bogus_config, variant, caplog):
     bogus_file.contents = "# first\n#!/bin/sh\necho success"
-    bogus_config["prolog"][variant] = bogus_config["prolog"]["hashbang"]
-    bogus_config["extension"][variant]["prolog"] = variant
+    bogus_config["prologues"][variant] = bogus_config["prologues"]["hashbang"]
+    bogus_config["extension"][variant]["prologue"] = variant
 
-    chipshot.reader.prolog.handle(bogus_file, bogus_config)
+    chipshot.reader.prologue.handle(bogus_file, bogus_config)
 
     assert (
-        "A prolog was found, but not at the beginning of the document." in caplog.text
+        "A prologue was found, but not at the beginning of the document." in caplog.text
     )
-    assert bogus_file.prolog == ""
+    assert bogus_file.prologue == ""
     assert bogus_file.contents == "# first\n#!/bin/sh\necho success"
 
 
-def test_prolog_not_configured(bogus_file, bogus_config):
+def test_prologue_not_configured(bogus_file, bogus_config):
     bogus_config["extension"] = {}
     bogus_file.contents = "#!/bin/sh\necho success"
 
-    chipshot.reader.prolog.handle(bogus_file, bogus_config)
+    chipshot.reader.prologue.handle(bogus_file, bogus_config)
 
-    assert bogus_file.prolog == ""
+    assert bogus_file.prologue == ""
     assert bogus_file.contents == "#!/bin/sh\necho success"
 
 
 @variants
-def test_prolog_no_newline(bogus_file, bogus_config, variant):
-    bogus_config["prolog"][variant]["pattern"] = "^#!.+?;"
-    bogus_config["extension"][variant]["prolog"] = variant
+def test_prologue_no_newline(bogus_file, bogus_config, variant):
+    bogus_config["prologues"][variant]["pattern"] = "^#!.+?;"
+    bogus_config["extension"][variant]["prologue"] = variant
     bogus_file.contents = "#!/bin/sh; echo success"
 
-    with pytest.raises(chipshot.exceptions.PrologRequiresTrailingNewline):
-        chipshot.reader.prolog.handle(bogus_file, bogus_config)
+    with pytest.raises(chipshot.exceptions.PrologueRequiresTrailingNewline):
+        chipshot.reader.prologue.handle(bogus_file, bogus_config)
