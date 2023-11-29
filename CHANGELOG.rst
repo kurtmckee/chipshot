@@ -23,6 +23,37 @@ Please see the fragment files in the `changelog.d directory`_.
 
 ..  scriv-insert-here
 
+.. _changelog-0.3.0:
+
+0.3.0 - 2023-11-29
+==================
+
+Fixed
+-----
+
+*   Fix a bug that prevented existing headers from being found
+    if they followed a document prologue.
+
+Changed
+-------
+
+*   Standardize how configurations for styles, prologues, and templates are found.
+
+    This helps ensure that the most specific configuration for a given file is always used.
+    For example, code interacting with a file with two extensions (like ``.jinja.html``)
+    will consistently find a configuration for ``.jinja.html`` before ``.html``.
+
+*   Rename ``prolog`` to ``prologue`` everywhere.
+
+*   Rename the configuration keys ``style`` and ``prolog`` to ``styles`` and ``prologues``.
+
+*   Eliminate the ``"default"`` config key.
+
+Development
+-----------
+
+*   Add a workflow that tests Chipshot using GitHub actions.
+
 .. _changelog-0.2.0:
 
 0.2.0 - 2023-11-28
