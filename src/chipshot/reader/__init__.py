@@ -8,7 +8,6 @@ import logging
 import pathlib
 import typing as t
 
-from ..config import get_config_value
 from ..shared import FileInfo
 from . import encoding, header, newlines, prologue
 
@@ -19,26 +18,15 @@ def read(path: pathlib.Path, config: dict[str, t.Any]) -> FileInfo:
     """Read a file and return its contents and metadata."""
 
     raw_contents = path.read_bytes()
-    info = FileInfo(
-        path=path,
-        raw_contents=raw_contents,
-        encoding=_determine_default_encoding(path, config),
-    )
+    info = FileInfo(path=path, raw_contents=raw_contents)
 
     # If the file is empty, skip all other steps.
     if not raw_contents:
         return info
 
-    encoding.handle(info)
+    encoding.handle(info, config)
     newlines.handle(info)
     prologue.handle(info, config)
     header.handle(info, config)
 
     return info
-
-
-def _determine_default_encoding(path: pathlib.Path, config: dict[str, t.Any]) -> str:
-    """Determine the default encoding for the given path."""
-
-    (default_encoding,) = get_config_value(config, path, "encoding")
-    return str(default_encoding)
