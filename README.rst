@@ -56,6 +56,6 @@ Here's a sample configuration for ensuring your files have correct headers:
     # .pre-commit-config.yaml
     repos:
       - repo: 'https://github.com/kurtmckee/chipshot'
-        rev: 'main'
+        rev: 'v0.4.0'
         hooks:
           - id: 'update-headers'

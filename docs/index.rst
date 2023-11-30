@@ -61,7 +61,11 @@ Getting Started
 How-To Guides
 =============
 
-*   How to customize comment styles
+..  toctree::
+    :maxdepth: 1
+
+    how-to/custom-headers
+
 *   How to integrate Chipshot in your everyday development
 
 

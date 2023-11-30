@@ -10,7 +10,7 @@ def test_empty_file(fs, default_config):
     info = chipshot.reader.read(path, default_config)
     assert info.raw_contents == b""
     assert info.bom == b""
-    assert info.encoding == "utf-8"
+    assert info.encoding == ""
     assert info.prologue == ""
     assert info.original_header == ""
     assert info.contents == ""

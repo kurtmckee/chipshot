@@ -17,12 +17,12 @@ import chipshot.reader.encoding
         (codecs.BOM_UTF32_LE, "utf-32-le"),
     ),
 )
-def test_bom(bogus_file, bom, encoding):
+def test_bom(bogus_file, default_config, bom, encoding):
     raw_contents = bom + "success".encode(encoding)
     bogus_file.raw_contents = raw_contents
     bogus_file.encoding = "utf-8"
 
-    chipshot.reader.encoding.handle(bogus_file)
+    chipshot.reader.encoding.handle(bogus_file, default_config)
 
     assert bogus_file.encoding == encoding
     assert bogus_file.bom == bom
@@ -41,4 +41,4 @@ def test_decode_errors(bogus_file, default_config, bom, exception):
     bogus_file.encoding = "utf-8"
 
     with pytest.raises(exception):
-        chipshot.reader.encoding.handle(bogus_file)
+        chipshot.reader.encoding.handle(bogus_file, default_config)

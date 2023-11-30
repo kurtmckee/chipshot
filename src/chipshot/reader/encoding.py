@@ -6,14 +6,16 @@ from __future__ import annotations
 
 import codecs
 import logging
+import typing
 
 from .. import exceptions
+from ..config import get_config_value
 from ..shared import FileInfo
 
 log = logging.getLogger(__name__)
 
 
-def handle(info: FileInfo) -> None:
+def handle(info: FileInfo, config: dict[str, typing.Any]) -> None:
     """Detect and handle the file encoding.
 
     The encoding may be determined by a byte order mark at the beginning of the file.
@@ -36,6 +38,8 @@ def handle(info: FileInfo) -> None:
     elif info.raw_contents.startswith(codecs.BOM_UTF8):
         info.bom = codecs.BOM_UTF8
         info.encoding = "utf-8"
+    else:
+        (info.encoding,) = get_config_value(config, info.path, "encoding")
 
     if info.bom:
         info.raw_contents = info.raw_contents[len(info.bom) :]

@@ -10,17 +10,30 @@ log = logging.getLogger(__name__)
 
 
 def write(file: FileInfo) -> None:
-    file.path.write_bytes(_render(file))
+    two_newlines = (file.newlines * 2).encode(file.encoding)
+    add_two_newlines = False
 
+    with file.path.open("wb") as f:
+        f.write(file.bom)
 
-def _render(file: FileInfo) -> bytes:
-    text: str = ""
-    if file.prologue:
-        text = f"{file.prologue}{file.newlines * 2}"
-    if file.header:
-        text += f"{file.header}{file.newlines * 2}"
-    if file.original_header:
-        text += f"{file.original_header}{file.newlines * 2}"
-    text += file.contents
+        if file.prologue:
+            f.write(file.prologue.replace("\n", file.newlines).encode(file.encoding))
+            add_two_newlines = True
 
-    return file.bom + text.encode(file.encoding)
+        if file.header:
+            if add_two_newlines:
+                f.write(two_newlines)
+            f.write(file.header.replace("\n", file.newlines).encode(file.encoding))
+            add_two_newlines = True
+
+        if file.original_header:
+            if add_two_newlines:
+                f.write(two_newlines)
+            f.write(
+                file.original_header.replace("\n", file.newlines).encode(file.encoding)
+            )
+            add_two_newlines = True
+
+        if add_two_newlines:
+            f.write(two_newlines)
+        f.write(file.contents.replace("\n", file.newlines).encode(file.encoding))

@@ -23,6 +23,26 @@ Please see the fragment files in the `changelog.d directory`_.
 
 ..  scriv-insert-here
 
+.. _changelog-0.4.0:
+
+0.4.0 - 2023-11-30
+==================
+
+Fixed
+-----
+
+*   Fix file writing, which wasn't rendering newlines correctly.
+
+Changed
+-------
+
+*   Determine the configured file encoding only if the file has content.
+
+Documentation
+-------------
+
+*   Document how to create a new custom style.
+
 .. _changelog-0.3.0:
 
 0.3.0 - 2023-11-29
