@@ -76,6 +76,8 @@ Reference
     :maxdepth: 1
 
     reference/boms
+    colophon
+    license
 
 *   Configuration file format
 *   Pre-commit hooks
