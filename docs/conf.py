@@ -41,3 +41,6 @@ html_theme_options = {
     # Don't show "Powered by" text.
     "show_powered_by": False,
 }
+
+# Don't copy source .rst files into the built documentation.
+html_copy_source = False
