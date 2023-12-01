@@ -87,10 +87,10 @@ def get_config_value(
     for starting_index in range(len(suffix_list)):
         extension = "".join(suffix_list[starting_index:])[1:]
         for key_index, key in enumerate(keys):
-            if key not in config["extension"].get(extension, {}):
+            if key not in config["extensions"].get(extension, {}):
                 continue
             log.debug(f"{path}: Using '{key}' config found for extension {extension}")
-            return_value[key_index] = config["extension"][extension][key]
+            return_value[key_index] = config["extensions"][extension][key]
             return tuple(return_value)
 
     # Look for the config in the global values.

@@ -133,7 +133,7 @@ def _get_files(
                 continue
 
             # Ensure that there's a configuration to apply to this file.
-            if not _get_suffixes(sub_path) & configuration["extension"].keys():
+            if not _get_suffixes(sub_path) & configuration["extensions"].keys():
                 continue
             yield sub_path
 
