@@ -1,0 +1,12 @@
+Development
+-----------
+
+*   Add a Dependabot configuration to auto-update GitHub action versions.
+*   Add more check-jsonschema pre-commit hooks.
+
+Documentation
+-------------
+
+*   Add Colophon and License pages.
+*   Fix TOML syntax in a code sample.
+*   Add a link to the Chipshot repository.

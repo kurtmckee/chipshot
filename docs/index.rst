@@ -64,7 +64,7 @@ How-To Guides
 ..  toctree::
     :maxdepth: 1
 
-    how-to/custom-headers
+    how-to/custom-style
 
 *   How to integrate Chipshot in your everyday development
 
@@ -76,6 +76,8 @@ Reference
     :maxdepth: 1
 
     reference/boms
+    colophon
+    license
 
 *   Configuration file format
 *   Pre-commit hooks
