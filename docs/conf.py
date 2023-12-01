@@ -32,4 +32,10 @@ html_static_path = [
 ]
 html_theme_options = {
     "logo": "logo.png",
+    # Link to GitHub
+    "github_user": "kurtmckee",
+    "github_repo": "chipshot",
+    "github_button": True,
+    "github_type": "star",
+    "github_count": False,
 }
