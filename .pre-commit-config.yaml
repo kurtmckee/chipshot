@@ -54,5 +54,5 @@ repos:
     rev: '0.27.2'
     hooks:
       - id: 'check-readthedocs'
-#      - id: 'check-dependabot'
-#      - id: 'check-github-workflows'
+      - id: 'check-dependabot'
+      - id: 'check-github-workflows'
