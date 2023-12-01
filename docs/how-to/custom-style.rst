@@ -1,4 +1,4 @@
-How To Create Custom Headers
+How To Create a Custom Style
 ############################
 
 Chipshot supports a wide variety of header styles
@@ -79,6 +79,7 @@ Here's the complete ``.chipshot.toml`` file, including a template:
     template = """
     Copyright 2022-{{ year }} Company Name
     Licensed under the terms of the MIT License.
+    """
 
     [chipshot.styles.my-php-style]
     block_prefix = "<?php\n/*\n"
