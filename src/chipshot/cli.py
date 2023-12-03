@@ -117,6 +117,9 @@ def run(
 def _get_files(
     paths: tuple[str], configuration: dict[str, typing.Any]
 ) -> typing.Generator[pathlib.Path, None, None]:
+    exclusions: list[pathlib.Path] = [
+        pathlib.Path(exclusion) for exclusion in configuration.get("exclusions", [])
+    ]
     for path_string in paths:
         path = pathlib.Path(path_string)
 
@@ -133,8 +136,13 @@ def _get_files(
                 continue
 
             # Ensure that there's a configuration to apply to this file.
-            if not _get_suffixes(sub_path) & configuration["extension"].keys():
+            if not _get_suffixes(sub_path) & configuration["extensions"].keys():
                 continue
+
+            # Ensure that the path is not excluded.
+            if any(sub_path == exclusion for exclusion in exclusions):
+                continue
+
             yield sub_path
 
 

@@ -29,7 +29,7 @@ def bogus_file():
 
 @pytest.fixture
 def bogus_config(default_config):
-    default_config["extension"].update(
+    default_config["extensions"].update(
         {
             "bogus": {},
             "bogus.bogus": {},

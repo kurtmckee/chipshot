@@ -1,3 +1,8 @@
+..
+    This file is a part of Chipshot <https://github.com/kurtmckee/chipshot>
+    Copyright 2022-2023 Kurt McKee <contactme@kurtmckee.org>
+    SPDX-License-Identifier: MIT
+
 ..  rst-class:: visually-hidden
 
 Welcome to the Chipshot documentation
@@ -65,8 +70,7 @@ How-To Guides
     :maxdepth: 1
 
     how-to/custom-style
-
-*   How to integrate Chipshot in your everyday development
+    how-to/exclusions
 
 
 Reference

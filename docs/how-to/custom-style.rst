@@ -1,3 +1,8 @@
+..
+    This file is a part of Chipshot <https://github.com/kurtmckee/chipshot>
+    Copyright 2022-2023 Kurt McKee <contactme@kurtmckee.org>
+    SPDX-License-Identifier: MIT
+
 How To Create a Custom Style
 ############################
 
@@ -68,7 +73,7 @@ Then, configure files with the "php" extension to use the new style.
 
 ..  code-block:: toml
 
-    [chipshot.extension.php]
+    [chipshot.extensions.php]
     style = "my-php-style"
 
 Here's the complete ``.chipshot.toml`` file, including a template:
@@ -86,7 +91,7 @@ Here's the complete ``.chipshot.toml`` file, including a template:
     line_prefix = " * "
     block_suffix = "\n */\n?>"
 
-    [chipshot.extension.php]
+    [chipshot.extensions.php]
     style = "my-php-style"
 
 Run Chipshot with the ``--update`` flag and pass it a PHP file to update.
