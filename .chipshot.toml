@@ -4,3 +4,8 @@ This file is a part of Chipshot <https://github.com/kurtmckee/chipshot>
 Copyright 2022-{{ year }} Kurt McKee <contactme@kurtmckee.org>
 SPDX-License-Identifier: MIT
 """
+
+exclusions = [
+    "docs/conf.py",
+    "docs/_static/custom.css",
+]
