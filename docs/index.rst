@@ -70,8 +70,7 @@ How-To Guides
     :maxdepth: 1
 
     how-to/custom-style
-
-*   How to integrate Chipshot in your everyday development
+    how-to/exclusions
 
 
 Reference
