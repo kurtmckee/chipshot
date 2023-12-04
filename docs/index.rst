@@ -80,8 +80,9 @@ Reference
     :maxdepth: 1
 
     reference/boms
-    colophon
+    changelog
     license
+    colophon
 
 *   Configuration file format
 *   Pre-commit hooks
