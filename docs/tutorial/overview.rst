@@ -1,3 +1,8 @@
+..
+    This file is a part of Chipshot <https://github.com/kurtmckee/chipshot>
+    Copyright 2022-2023 Kurt McKee <contactme@kurtmckee.org>
+    SPDX-License-Identifier: MIT
+
 An overview of Chipshot's features
 ##################################
 
@@ -146,7 +151,7 @@ so it's possible to add new styles as needed.
 ..  rubric:: Example: A custom style in ``.chipshot.toml`` for PHP scripts
 ..  code-block:: toml
 
-    [chipshot.extension.php]
+    [chipshot.extensions.php]
     block_prefix = "<?php\n"
     line_prefix = "// "
     block_suffix = "\n?>"

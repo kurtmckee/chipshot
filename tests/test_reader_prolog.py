@@ -36,7 +36,7 @@ def test_prologue_success_with_header(fs, default_config):
 
 def test_prologue_empty_pattern(bogus_file, bogus_config):
     bogus_file.contents = "anything"
-    bogus_config["extension"]["bogus"]["prologue"] = "bogus"
+    bogus_config["extensions"]["bogus"]["prologue"] = "bogus"
     bogus_config["prologues"]["bogus"]["pattern"] = ""
 
     chipshot.reader.prologue.handle(bogus_file, bogus_config)
@@ -49,7 +49,7 @@ def test_prologue_empty_pattern(bogus_file, bogus_config):
 def test_prologue_not_first_line(bogus_file, bogus_config, variant, caplog):
     bogus_file.contents = "# first\n#!/bin/sh\necho success"
     bogus_config["prologues"][variant] = bogus_config["prologues"]["hashbang"]
-    bogus_config["extension"][variant]["prologue"] = variant
+    bogus_config["extensions"][variant]["prologue"] = variant
 
     chipshot.reader.prologue.handle(bogus_file, bogus_config)
 
@@ -61,7 +61,7 @@ def test_prologue_not_first_line(bogus_file, bogus_config, variant, caplog):
 
 
 def test_prologue_not_configured(bogus_file, bogus_config):
-    bogus_config["extension"] = {}
+    bogus_config["extensions"] = {}
     bogus_file.contents = "#!/bin/sh\necho success"
 
     chipshot.reader.prologue.handle(bogus_file, bogus_config)
@@ -73,7 +73,7 @@ def test_prologue_not_configured(bogus_file, bogus_config):
 @variants
 def test_prologue_no_newline(bogus_file, bogus_config, variant):
     bogus_config["prologues"][variant]["pattern"] = "^#!.+?;"
-    bogus_config["extension"][variant]["prologue"] = variant
+    bogus_config["extensions"][variant]["prologue"] = variant
     bogus_file.contents = "#!/bin/sh; echo success"
 
     with pytest.raises(chipshot.exceptions.PrologueRequiresTrailingNewline):

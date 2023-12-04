@@ -76,123 +76,123 @@ block_suffix = "\n-->"
 # Extensions
 # ----------
 
-[extension.adoc]
+[extensions.adoc]
 style = "slash-slash"
 
-[extension.ahk]
+[extensions.ahk]
 style = "semicolon"
 
-[extension.bat]
+[extensions.bat]
 style = "batch"
 
-[extension.c]
+[extensions.c]
 style = "slash-star"
 
-[extension.cmd]
+[extensions.cmd]
 style = "batch"
 
-[extension.cpp]
+[extensions.cpp]
 style = "slash-slash"
 
-[extension.cs]
+[extensions.cs]
 style = "slash-slash"
 
-[extension.css]
+[extensions.css]
 style = "slash-star"
 
-[extension.go]
+[extensions.go]
 style = "slash-slash"
 
-[extension.groovy]
+[extensions.groovy]
 style = "slash-slash"
 
-[extension.h]
+[extensions.h]
 style = "slash-slash"
 
-[extension.htm]
+[extensions.htm]
 style = "html"
 prologue = "html_doctype"
 
-[extension.html]
+[extensions.html]
 style = "html"
 prologue = "html_doctype"
 
-[extension.java]
+[extensions.java]
 style = "slash-slash"
 
-[extension.jinja]
+[extensions.jinja]
 style = "jinja"
 
-[extension.js]
+[extensions.js]
 prologue = "hashbang"
 style = "slash-slash"
 
-[extension.kt]
+[extensions.kt]
 style = "slash-slash"
 
-[extension.kts]
+[extensions.kts]
 style = "slash-slash"
 
-[extension.markdown]
+[extensions.markdown]
 style = "xml"
 
-[extension.md]
+[extensions.md]
 style = "xml"
 
-[extension.mermaid]
+[extensions.mermaid]
 style = "percent-percent"
 
-[extension.ps1]
+[extensions.ps1]
 style = "hash"
 prologue = "hashbang"
 
-[extension.py]
+[extensions.py]
 style = "hash"
 prologue = "hashbang"
 
-[extension.r]
+[extensions.r]
 style = "hash"
 prologue = "hashbang"
 
-[extension.rb]
+[extensions.rb]
 style = "hash"
 prologue = "hashbang"
 
-[extension.rs]
+[extensions.rs]
 style = "slash-slash"
 
-[extension.rst]
+[extensions.rst]
 style = "restructured-text"
 
-[extension.sc]
+[extensions.sc]
 style = "slash-slash"
 
-[extension.scala]
+[extensions.scala]
 style = "slash-slash"
 
-[extension.sh]
+[extensions.sh]
 style = "hash"
 prologue = "hashbang"
 
-[extension.sql]
+[extensions.sql]
 style = "dash-dash"
 
-[extension.swift]
+[extensions.swift]
 style = "slash-slash"
 
-[extension.ts]
+[extensions.ts]
 style = "slash-slash"
 
-[extension.ttl]
+[extensions.ttl]
 style = "semicolon"
 
-[extension.vbs]
+[extensions.vbs]
 style = "apostrophe"
 
-[extension.xhtml]
+[extensions.xhtml]
 style = "xml"
 prologue = "xhtml_declaration_and_doctype"
 
-[extension.xml]
+[extensions.xml]
 style = "xml"
 prologue = "xml_declaration"

@@ -23,6 +23,34 @@ Please see the fragment files in the `changelog.d directory`_.
 
 ..  scriv-insert-here
 
+.. _changelog-0.5.0:
+
+0.5.0 - 2023-12-04
+==================
+
+Added
+-----
+
+*   Support a top-level ``exclusions`` key to exclude specific files.
+
+Changed
+-------
+
+*   Rename the ``"extension"`` configuration key to ``"extensions"``.
+
+Documentation
+-------------
+
+*   Add Changelog, License, and Colophon pages.
+*   Fix TOML syntax in a code sample.
+*   Add a link to the Chipshot repository.
+
+Development
+-----------
+
+*   Add a Dependabot configuration to auto-update GitHub action versions.
+*   Add more check-jsonschema pre-commit hooks.
+
 .. _changelog-0.4.0:
 
 0.4.0 - 2023-11-30
