@@ -23,6 +23,24 @@ Please see the fragment files in the `changelog.d directory`_.
 
 ..  scriv-insert-here
 
+.. _changelog-0.6.0:
+
+0.6.0 - 2023-12-07
+==================
+
+Added
+-----
+
+*   Use hashbang lines to determine the interpreter identity
+    for extension-less scripts.
+*   Support encoding comments near the tops of files for Python and Ruby.
+*   Support Perl file extensions.
+
+Changed
+-------
+
+*   Allow exclusions to match directories, too.
+
 .. _changelog-0.5.0:
 
 0.5.0 - 2023-12-04
