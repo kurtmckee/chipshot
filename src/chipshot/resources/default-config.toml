@@ -7,6 +7,20 @@ encoding = "utf-8"
 [prologues.hashbang]
 pattern = "^#!.+$"
 
+[prologues.hashbang-with-encoding]
+# Some programming languages support hashbangs and optional encoding comments.
+# These must be kept unseparated at the top of the file.
+#
+# https://peps.python.org/pep-0263/
+# https://docs.ruby-lang.org/en/master/syntax/comments_rdoc.html#label-Magic+Comments
+#
+# The following pattern matches:
+#   '#!hashbang'
+#   '# encoding'
+#   '#!hashbang' '\n' '# encoding'
+# It also matches empty strings, which is undesirable.
+pattern = "\\A(^#!.+$)?(?:(?(1)\\n|)^#.*(?:en)?coding[\\t ]*[:=].*$)?"
+
 [prologues.html_doctype]
 pattern = "(?i)^<\\!doctype(.|\\n)+>$"
 
@@ -15,7 +29,6 @@ pattern = "^(<\\?xml(.|\\n)+\\?>)?\\s*(?i)(^<\\!doctype(.|\\n)+>)?$"
 
 [prologues.xml_declaration]
 pattern = "^<\\?xml(.|\\n)+\\?>$"
-
 
 
 # Styles
@@ -142,21 +155,25 @@ style = "xml"
 [extensions.mermaid]
 style = "percent-percent"
 
+[extensions.pl]
+prologue = "hashbang"
+style = "hash"
+
 [extensions.ps1]
 style = "hash"
 prologue = "hashbang"
 
 [extensions.py]
+prologue = "hashbang-with-encoding"
 style = "hash"
-prologue = "hashbang"
 
 [extensions.r]
 style = "hash"
 prologue = "hashbang"
 
 [extensions.rb]
+prologue = "hashbang-with-encoding"
 style = "hash"
-prologue = "hashbang"
 
 [extensions.rs]
 style = "slash-slash"
@@ -196,3 +213,45 @@ prologue = "xhtml_declaration_and_doctype"
 [extensions.xml]
 style = "xml"
 prologue = "xml_declaration"
+
+
+# Interpreters
+# ------------
+
+[interpreters]
+bash = "shell"
+node = "javascript"
+nodejs = "javascript"
+perl = "perl"
+pwsh = "powershell"
+python = "python"
+ruby = "ruby"
+sh = "shell"
+
+
+# Types
+# -----
+
+[types.javascript]
+prologue = "hashbang"
+style = "slash-slash"
+
+[types.perl]
+prologue = "hashbang"
+style = "hash"
+
+[types.powershell]
+prologue = "hashbang"
+style = "hash"
+
+[types.python]
+prologue = "hashbang-with-encoding"
+style = "hash"
+
+[types.ruby]
+prologue = "hashbang-with-encoding"
+style = "hash"
+
+[types.shell]
+prologue = "hashbang"
+style = "hash"

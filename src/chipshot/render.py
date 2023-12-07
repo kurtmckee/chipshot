@@ -12,16 +12,17 @@ import jinja2
 
 from . import exceptions
 from .config import get_config_value
+from .shared import FileInfo
 
 
-def render_header(file: pathlib.Path, config: dict[str, t.Any]) -> str:
+def render_header(info: FileInfo, config: dict[str, t.Any]) -> str:
     """Render a (possibly file-specific) template into a header."""
 
     # Look for a template or template path.
     jinja_loader: jinja2.DictLoader | jinja2.FileSystemLoader
     try:
         template, template_path_str = get_config_value(
-            config, file, "template", "template_path"
+            config, info, "template", "template_path"
         )
     except KeyError:
         raise exceptions.NoTemplateDefined
@@ -47,7 +48,7 @@ def render_header(file: pathlib.Path, config: dict[str, t.Any]) -> str:
     )
 
     # Use the most specific style possible.
-    (style_key,) = get_config_value(config, file, "style")
+    (style_key,) = get_config_value(config, info, "style")
     style = config["styles"][style_key]
 
     lines: list[str] = []

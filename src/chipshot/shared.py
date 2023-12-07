@@ -21,6 +21,7 @@ newline_type = t.Literal["", "\n", "\r", "\r\n"]
 class FileInfo:
     path: pathlib.Path
     raw_contents: bytes
+    identity: str = ""
     encoding: str = ""
     newlines: newline_type = ""
     bom: bom_type = b""

@@ -1,4 +1,6 @@
 import codecs
+import logging
+import pathlib
 
 import pytest
 
@@ -42,3 +44,51 @@ def test_decode_errors(bogus_file, default_config, bom, exception):
 
     with pytest.raises(exception):
         chipshot.reader.encoding.handle(bogus_file, default_config)
+
+
+@pytest.mark.parametrize(
+    "encoding_comment",
+    (
+        # Source: https://peps.python.org/pep-0263/
+        pytest.param("# coding=shift-jis", id="pep263-basic"),
+        pytest.param("# -*- coding: shift-jis -*-", id="pep263-emacs"),
+        pytest.param("# vim: set fileencoding=shift-jis :", id="pep263-vim"),
+        pytest.param("# This file uses this encoding: shift-jis", id="pep263-text"),
+    ),
+)
+@pytest.mark.parametrize("hashbang", ("", "#!/usr/bin/python\n"))
+def test_comment_encoding(encoding_comment, hashbang, bogus_file, default_config):
+    bogus_file.path = pathlib.Path("script")
+    expected_contents = f"{hashbang}{encoding_comment}\nprint('平仮名')"
+    bogus_file.raw_contents = expected_contents.encode("shift-jis")
+
+    chipshot.reader.encoding.handle(bogus_file, default_config)
+    assert bogus_file.encoding == "shift-jis"
+    assert bogus_file.contents == expected_contents
+
+
+def test_comment_encoding_lookup_error(bogus_file, default_config, caplog):
+    caplog.set_level(logging.DEBUG)
+    bogus_file.path = pathlib.Path("script")
+    # Source: https://peps.python.org/pep-0263/
+    bogus_file.raw_contents = b"# -*- coding: utf-42 -*-"
+
+    chipshot.reader.encoding.handle(bogus_file, default_config)
+    assert bogus_file.encoding == "utf-8"
+    assert "'utf-42' is not a valid encoding" in caplog.text
+
+
+def test_comment_encoding_incorrect(bogus_file, default_config):
+    bogus_file.path = pathlib.Path("script")
+    bogus_file.raw_contents = "# coding=shift-jis\nprint('平仮名')".encode()
+
+    with pytest.raises(chipshot.exceptions.FileDoesNotMatchEmbeddedEncoding):
+        chipshot.reader.encoding.handle(bogus_file, default_config)
+
+
+def test_comment_encoding_3rd_line(bogus_file, default_config):
+    bogus_file.path = pathlib.Path("script")
+    bogus_file.raw_contents = b"\n\n# coding=ascii"
+
+    chipshot.reader.encoding.handle(bogus_file, default_config)
+    assert bogus_file.encoding == "utf-8"

@@ -17,7 +17,7 @@ log = logging.getLogger(__name__)
 
 def handle(info: FileInfo, config: dict[str, t.Any]) -> None:
     try:
-        (prologue_key,) = get_config_value(config, info.path, "prologue")
+        (prologue_key,) = get_config_value(config, info, "prologue")
     except KeyError:
         return
 
@@ -27,7 +27,7 @@ def handle(info: FileInfo, config: dict[str, t.Any]) -> None:
 
     pattern = re.compile(prologue_pattern, flags=re.M)
     match = pattern.search(info.contents)
-    if match is None:
+    if match is None or match.group() == "":
         return
 
     match_start, match_end = match.span(0)
