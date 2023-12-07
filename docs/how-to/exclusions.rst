@@ -16,7 +16,8 @@ It supports a list of files that Chipshot must ignore.
 The example below will tell Chipshot to exclude ``conf.py``,
 which is the standard name for a Sphinx configuration file;
 it will also ignore ``Gruntfile.js``,
-which is a common name for a Grunt configuration file.
+which is a common name for a Grunt configuration file;
+it will also ignore everything in the ``tests/`` subdirectory.
 
 ..  code-block:: toml
 
@@ -24,4 +25,5 @@ which is a common name for a Grunt configuration file.
     exclusions = [
         "docs/conf.py",
         "Gruntfile.js",
+        "tests/",
     ]
