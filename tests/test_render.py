@@ -1,9 +1,14 @@
+# This file is a part of Chipshot <https://github.com/kurtmckee/chipshot>
+# Copyright 2022-2023 Kurt McKee <contactme@kurtmckee.org>
+# SPDX-License-Identifier: MIT
+
 import pathlib
 import textwrap
 
 import pytest
 
-import chipshot.render as csr
+import chipshot.render
+import chipshot.shared
 
 test_templates_root = (pathlib.Path(__file__).parent / "files/templates").resolve()
 rendered_files = [
@@ -16,7 +21,8 @@ rendered_files = [
 def test_render_header(default_config, rendered_file: pathlib.Path):
     default_config.update({"template_path": str(rendered_file.parent / "template.txt")})
     expected = rendered_file.read_text()
-    rendered = csr.render_header(rendered_file, default_config)
+    file = chipshot.shared.FileInfo(rendered_file, raw_contents=b"")
+    rendered = chipshot.render.render_header(file, default_config)
     fail_message = textwrap.dedent(
         """
         Expected:

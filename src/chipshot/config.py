@@ -21,6 +21,7 @@ else:  # Python < 3.11
     import tomli as tomllib
 
 from . import exceptions, resources
+from .shared import FileInfo
 
 log = logging.getLogger(__name__)
 
@@ -60,29 +61,37 @@ def load(path: str | pathlib.Path | None = None) -> dict[str, t.Any]:
 
 def get_config_value(
     config: dict[str, t.Any],
-    path: pathlib.Path,
+    info: FileInfo,
     *keys: str,
 ) -> tuple[t.Any, ...]:
-    """Get the most specific config value possible for a given file path.
+    """Get the most specific config value possible for a given file.
 
-    "Most specific" means "the greatest number of suffixes with a matching config key".
+    "Most specific" means the following:
 
-    For example, if the filename is `sidebar.jinja.html`,
-    then these extensions will be tried in this order:
+    1.  Check all possible extensions, from the greatest number to the least number.
 
-    *   jinja.html
-    *   html
+        For example, if the filename is `sidebar.jinja.html`,
+        then these extensions will be tried in this order:
+
+        *   jinja.html
+        *   html
+
+    2.  If no extension matches, check the file type for a configuration value.
+
+    3.  If no extension or file type matches, check the global configuration.
 
     If more than one key is specified (for example, "template" and "template_path"),
     the first key found in the most specific config will be selected.
 
     The return value will be a tuple with the same length as the number of keys.
 
+    ``KeyError`` is raised if no configuration value is defined anywhere.
     """
 
     return_value = [None] * len(keys)
 
     # Look for the config in the 'extension' values.
+    path = info.path
     suffix_list = path.suffixes
     for starting_index in range(len(suffix_list)):
         extension = "".join(suffix_list[starting_index:])[1:]
@@ -91,6 +100,15 @@ def get_config_value(
                 continue
             log.debug(f"{path}: Using '{key}' config found for extension {extension}")
             return_value[key_index] = config["extensions"][extension][key]
+            return tuple(return_value)
+
+    type_ = info.identity
+    if type_ in config["types"]:
+        for key_index, key in enumerate(keys):
+            if key not in config["types"][type_]:
+                continue
+            log.debug(f"{path}: Using '{key}' config found for file type '{type_}'")
+            return_value[key_index] = config["types"][type_][key]
             return tuple(return_value)
 
     # Look for the config in the global values.

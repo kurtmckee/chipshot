@@ -81,7 +81,7 @@ def run(
             log.debug(f"{path}: Empty file (no-op)")
             continue
 
-        info.header = render.render_header(path, configuration)
+        info.header = render.render_header(info, configuration)
 
         # If the headers match, do nothing.
         if info.header == info.original_header:
@@ -135,12 +135,16 @@ def _get_files(
             if not sub_path.is_file():
                 continue
 
-            # Ensure that there's a configuration to apply to this file.
-            if not _get_suffixes(sub_path) & configuration["extensions"].keys():
+            # Ensure that files with extensions have a configuration.
+            suffixes = _get_suffixes(sub_path)
+            if suffixes and not suffixes & configuration["extensions"].keys():
                 continue
 
             # Ensure that the path is not excluded.
-            if any(sub_path == exclusion for exclusion in exclusions):
+            if any(
+                sub_path == exclusion or sub_path.is_relative_to(exclusion)
+                for exclusion in exclusions
+            ):
                 continue
 
             yield sub_path

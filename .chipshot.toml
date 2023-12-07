@@ -8,4 +8,5 @@ SPDX-License-Identifier: MIT
 exclusions = [
     "docs/conf.py",
     "docs/_static/custom.css",
+    "tests/files/",
 ]
