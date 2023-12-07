@@ -18,7 +18,7 @@ def handle(info: FileInfo, config: dict[str, t.Any]) -> None:
     """Detect and extract an existing header."""
 
     try:
-        (style_key,) = get_config_value(config, info.path, "style")
+        (style_key,) = get_config_value(config, info, "style")
     except KeyError:
         # If no style is defined for the file, do nothing.
         return

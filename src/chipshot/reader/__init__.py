@@ -9,7 +9,7 @@ import pathlib
 import typing as t
 
 from ..shared import FileInfo
-from . import encoding, header, newlines, prologue
+from . import encoding, header, identity, newlines, prologue
 
 log = logging.getLogger(__name__)
 
@@ -26,6 +26,7 @@ def read(path: pathlib.Path, config: dict[str, t.Any]) -> FileInfo:
 
     encoding.handle(info, config)
     newlines.handle(info)
+    identity.handle(info, config)
     prologue.handle(info, config)
     header.handle(info, config)
 

@@ -27,6 +27,10 @@ class FileDoesNotMatchBOMEncoding(FileDecodeError):
     """A file could not be decoded using the encoding specified by its BOM."""
 
 
+class FileDoesNotMatchEmbeddedEncoding(FileDecodeError):
+    """A file could not be decoded using the encoding embedded in the file."""
+
+
 class FileDoesNotMatchConfiguredEncoding(FileDecodeError):
     """A file could not be decoded using the encoding specified in the config."""
 
