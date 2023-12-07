@@ -141,7 +141,10 @@ def _get_files(
                 continue
 
             # Ensure that the path is not excluded.
-            if any(sub_path == exclusion for exclusion in exclusions):
+            if any(
+                sub_path == exclusion or sub_path.is_relative_to(exclusion)
+                for exclusion in exclusions
+            ):
                 continue
 
             yield sub_path
