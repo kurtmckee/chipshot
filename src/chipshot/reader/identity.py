@@ -27,7 +27,9 @@ def handle(info: FileInfo, config: dict[str, typing.Any]) -> None:
         return
 
     for piece in info.contents[2:200].split()[:2]:
-        path = pathlib.PurePath(piece)
+        # PureWindowsPath is compatible with both *nix and Windows paths,
+        # and ensures the name can be extracted, regardless of platform.
+        path = pathlib.PureWindowsPath(piece)
 
         # Look for the full name.
         name = path.name.lower()
@@ -43,7 +45,7 @@ def handle(info: FileInfo, config: dict[str, typing.Any]) -> None:
             info.identity = config["interpreters"][name_without_version]
             return
 
-        # Try removing the extension (like "python.exe").
+        # Try removing the extension (such as "python.exe" on Windows).
         stem = path.stem
         if stem in config["interpreters"]:
             log.debug(f"{info.path}: Found base interpreter '{name}'")
