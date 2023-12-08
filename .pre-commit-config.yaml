@@ -19,6 +19,11 @@ repos:
           - '--fix=lf'
       - id: 'trailing-whitespace'
 
+  - repo: 'https://github.com/kurtmckee/chipshot'
+    rev: 'v0.6.0'
+    hooks:
+      - id: 'update-headers'
+
   - repo: 'https://github.com/asottile/pyupgrade'
     rev: 'v3.15.0'
     hooks:
