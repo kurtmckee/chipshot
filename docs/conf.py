@@ -1,3 +1,4 @@
+import datetime
 import pathlib
 import tomllib
 
@@ -12,7 +13,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "Chipshot"
-copyright = "2022-2023 Kurt McKee"
+copyright = f"2022-{datetime.datetime.now().strftime('%Y')} Kurt McKee"
 
 # Extract the project version.
 pyproject_ = pathlib.Path(__file__).parent.parent / "pyproject.toml"
