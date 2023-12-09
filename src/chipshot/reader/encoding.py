@@ -58,6 +58,11 @@ def handle(info: FileInfo, config: dict[str, typing.Any]) -> None:
         try:
             info.contents = info.raw_contents.decode(info.encoding)
         except UnicodeDecodeError:
+            log.error(
+                f"{info.path}: "
+                f"The file contains a byte order mark for '{info.encoding}' "
+                "but could not be decoded"
+            )
             raise exceptions.FileDoesNotMatchBOMEncoding
         return
 
@@ -70,8 +75,17 @@ def handle(info: FileInfo, config: dict[str, typing.Any]) -> None:
         try:
             info.contents = info.raw_contents.decode(info.encoding)
         except LookupError:
-            log.debug(f"{info.path}: '{info.encoding}' is not a valid encoding")
+            log.warning(
+                f"{info.path}: "
+                f"The file contains an embedded encoding, '{info.encoding}', "
+                "but that encoding is not recognized"
+            )
         except UnicodeDecodeError:
+            log.error(
+                f"{info.path}: "
+                f"The file contains an embedded encoding, '{info.encoding}', "
+                "but could not be decoded"
+            )
             raise exceptions.FileDoesNotMatchEmbeddedEncoding
         else:
             return
@@ -82,4 +96,9 @@ def handle(info: FileInfo, config: dict[str, typing.Any]) -> None:
     try:
         info.contents = info.raw_contents.decode(info.encoding)
     except UnicodeDecodeError:
+        log.error(
+            f"{info.path}: "
+            f"The file was configured to use encoding '{info.encoding}', "
+            "but could not be decoded"
+        )
         raise exceptions.FileDoesNotMatchConfiguredEncoding

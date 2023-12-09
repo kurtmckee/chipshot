@@ -51,6 +51,7 @@ def test_prologue_empty_pattern(bogus_file, bogus_config):
 
 @variants
 def test_prologue_not_first_line(bogus_file, bogus_config, variant, caplog):
+    caplog.set_level(0)
     bogus_file.contents = "# first\n#!/bin/sh\necho success"
     bogus_config["prologues"][variant] = bogus_config["prologues"]["hashbang"]
     bogus_config["extensions"][variant]["prologue"] = variant
