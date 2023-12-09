@@ -51,6 +51,7 @@ def test_prologue_empty_pattern(bogus_file, bogus_config):
 
 @variants
 def test_prologue_not_first_line(bogus_file, bogus_config, variant, caplog):
+    caplog.set_level(0)
     bogus_file.contents = "# first\n#!/bin/sh\necho success"
     bogus_config["prologues"][variant] = bogus_config["prologues"]["hashbang"]
     bogus_config["extensions"][variant]["prologue"] = variant
@@ -82,3 +83,13 @@ def test_prologue_no_newline(bogus_file, bogus_config, variant):
 
     with pytest.raises(chipshot.exceptions.PrologueRequiresTrailingNewline):
         chipshot.reader.prologue.handle(bogus_file, bogus_config)
+
+
+def test_css_prologue(bogus_file, default_config):
+    bogus_file.path = pathlib.Path("sample.css")
+    bogus_file.contents = """@charset: "shift-jis";\n.x::before { content: '🎮 '; }"""
+
+    chipshot.reader.prologue.handle(bogus_file, default_config)
+
+    assert bogus_file.prologue == '@charset: "shift-jis";'
+    assert bogus_file.contents == ".x::before { content: '🎮 '; }"

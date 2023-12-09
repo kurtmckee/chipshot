@@ -12,6 +12,8 @@ import typing
 import click
 import click.exceptions
 
+import chipshot.exceptions
+
 from . import compare, config, logger, reader, render, writer
 
 
@@ -61,6 +63,7 @@ def run(
 ) -> None:
     """Chipshot -- Set up game-winning headers!"""
 
+    error_encountered = False
     files_updated = False
 
     # Set up logging.
@@ -74,14 +77,22 @@ def run(
         configuration = config.load(pathlib.Path(config_file))
 
     for path in _get_files(paths, configuration):
-        info = reader.read(path, configuration)
+        try:
+            info = reader.read(path, configuration)
+        except chipshot.exceptions.ChipshotError as error:
+            log.debug(f"{path}: Encountered error {error.__class__.__name__}")
+            error_encountered = True
+            continue
 
         # If the file is empty, do nothing.
         if not info.raw_contents:
             log.debug(f"{path}: Empty file (no-op)")
             continue
 
-        info.header = render.render_header(info, configuration)
+        try:
+            info.header = render.render_header(info, configuration)
+        except KeyError:
+            continue
 
         # If the headers match, do nothing.
         if info.header == info.original_header:
@@ -110,6 +121,8 @@ def run(
         if update:
             writer.write(info)
 
+    if error_encountered:
+        raise click.exceptions.Exit(2)
     if files_updated:
         raise click.exceptions.Exit(1)
 

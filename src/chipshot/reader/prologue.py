@@ -34,7 +34,7 @@ def handle(info: FileInfo, config: dict[str, t.Any]) -> None:
 
     # The prologue, if found, must start at the first character in the document.
     if match_start != 0:
-        log.warning(
+        log.debug(
             f"{info.path}: "
             "A prologue was found, but not at the beginning of the document. "
             "It will be ignored."
