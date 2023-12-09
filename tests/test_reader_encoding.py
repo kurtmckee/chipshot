@@ -50,7 +50,7 @@ def test_decode_errors(bogus_file, default_config, bom, exception):
 
 
 @pytest.mark.parametrize(
-    "encoding_comment",
+    "embedded_encoding",
     (
         # Source: https://peps.python.org/pep-0263/
         pytest.param("# coding=shift-jis", id="pep263-basic"),
@@ -60,9 +60,9 @@ def test_decode_errors(bogus_file, default_config, bom, exception):
     ),
 )
 @pytest.mark.parametrize("hashbang", ("", "#!/usr/bin/python\n"))
-def test_comment_encoding(encoding_comment, hashbang, bogus_file, default_config):
+def test_embedded_encoding(embedded_encoding, hashbang, bogus_file, default_config):
     bogus_file.path = pathlib.Path("script")
-    expected_contents = f"{hashbang}{encoding_comment}\nprint('平仮名')"
+    expected_contents = f"{hashbang}{embedded_encoding}\nprint('平仮名')"
     bogus_file.raw_contents = expected_contents.encode("shift-jis")
 
     chipshot.reader.encoding.handle(bogus_file, default_config)
@@ -70,20 +70,35 @@ def test_comment_encoding(encoding_comment, hashbang, bogus_file, default_config
     assert bogus_file.contents == expected_contents
 
 
-def test_comment_encoding_lookup_error(bogus_file, default_config, caplog):
+@pytest.mark.parametrize(
+    "embedded_encoding",
+    (
+        b"# -*- coding: utf-42 -*-",
+        b'@charset: "utf-42";',
+    ),
+)
+def test_embedded_encoding_lookup_error(
+    embedded_encoding, bogus_file, default_config, caplog
+):
     caplog.set_level(0)
     bogus_file.path = pathlib.Path("script")
-    # Source: https://peps.python.org/pep-0263/
-    bogus_file.raw_contents = b"# -*- coding: utf-42 -*-"
+    bogus_file.raw_contents = embedded_encoding
 
     chipshot.reader.encoding.handle(bogus_file, default_config)
     assert bogus_file.encoding == "utf-8"
     assert "'utf-42', but that encoding is not recognized" in caplog.text
 
 
-def test_comment_encoding_incorrect(bogus_file, default_config):
+@pytest.mark.parametrize(
+    "contents",
+    (
+        "# coding=shift-jis\nprint('平仮名')",
+        """@charset: "shift-jis";\n.games::before { content: '🎮 '; }""",
+    ),
+)
+def test_comment_encoding_incorrect(contents, bogus_file, default_config):
     bogus_file.path = pathlib.Path("script")
-    bogus_file.raw_contents = "# coding=shift-jis\nprint('平仮名')".encode()
+    bogus_file.raw_contents = contents.encode("utf-8")
 
     with pytest.raises(chipshot.exceptions.FileDoesNotMatchEmbeddedEncoding):
         chipshot.reader.encoding.handle(bogus_file, default_config)

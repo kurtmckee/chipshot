@@ -16,10 +16,18 @@ from ..shared import FileInfo
 log = logging.getLogger(__name__)
 
 
-encoding_comment_pattern = re.compile(
+embedded_encoding_pattern_strings = [
+    # https://peps.python.org/pep-0263/
+    # https://docs.ruby-lang.org/en/master/syntax/comments_rdoc.html#label-Magic+Comments
     r"\A(?:^#.*$\n)?#.*(?:en)?coding[\t ]*[:=][\t ]*(?P<encoding>[A-Za-z0-9_.-]+)",
-    flags=re.MULTILINE,
-)
+    #
+    # https://developer.mozilla.org/en-US/docs/Web/CSS/@charset
+    r'\A@charset: "(?P<encoding>[^"]+)";',
+]
+embedded_encoding_patterns = [
+    re.compile(pattern, flags=re.MULTILINE)
+    for pattern in embedded_encoding_pattern_strings
+]
 
 
 def handle(info: FileInfo, config: dict[str, typing.Any]) -> None:
@@ -66,10 +74,13 @@ def handle(info: FileInfo, config: dict[str, typing.Any]) -> None:
             raise exceptions.FileDoesNotMatchBOMEncoding
         return
 
-    # If the file contains a "coding" or "encoding" comment, use it.
-    chunk = info.raw_contents[:500].decode("utf-8", errors="ignore")
-    match = encoding_comment_pattern.search(chunk)
-    if match is not None:
+    # If the file contains an embedded encoding declaration, use it.
+    chunk = info.raw_contents[:1024].decode("utf-8", errors="ignore")
+    for pattern in embedded_encoding_patterns:
+        match = pattern.search(chunk)
+        if match is None:
+            continue
+
         info.encoding = match.group("encoding")
         log.debug(f"{info.path}: Found comment encoding '{info.encoding}'")
         try:
