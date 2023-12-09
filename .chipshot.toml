@@ -8,6 +8,7 @@ SPDX-License-Identifier: MIT
 exclusions = [
     ".editorconfig",
     ".gitignore",
+    "changelog.d/",
     "docs/conf.py",
     "docs/_static/custom.css",
     "tests/files/",

@@ -3,7 +3,6 @@
 # SPDX-License-Identifier: MIT
 
 import codecs
-import logging
 import pathlib
 
 import pytest
@@ -72,14 +71,14 @@ def test_comment_encoding(encoding_comment, hashbang, bogus_file, default_config
 
 
 def test_comment_encoding_lookup_error(bogus_file, default_config, caplog):
-    caplog.set_level(logging.DEBUG)
+    caplog.set_level(0)
     bogus_file.path = pathlib.Path("script")
     # Source: https://peps.python.org/pep-0263/
     bogus_file.raw_contents = b"# -*- coding: utf-42 -*-"
 
     chipshot.reader.encoding.handle(bogus_file, default_config)
     assert bogus_file.encoding == "utf-8"
-    assert "'utf-42' is not a valid encoding" in caplog.text
+    assert "'utf-42', but that encoding is not recognized" in caplog.text
 
 
 def test_comment_encoding_incorrect(bogus_file, default_config):

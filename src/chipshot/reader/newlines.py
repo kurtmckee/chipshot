@@ -37,4 +37,5 @@ def handle(info: FileInfo) -> None:
         or (macos and windows == linux == 0)  # macOS-style newlines
         or (linux and windows == macos == 0)  # Linux-style newlines
     ):
+        log.error(f"{info.path}: The file contains inconsistent newlines")
         raise exceptions.InconsistentNewlines
