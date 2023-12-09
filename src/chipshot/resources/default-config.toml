@@ -4,6 +4,9 @@ encoding = "utf-8"
 # Prologues
 # ---------
 
+[prologues.css-charset]
+pattern = '^@charset: ".+";.*$'
+
 [prologues.hashbang]
 pattern = "^#!.+$"
 
@@ -111,6 +114,7 @@ style = "slash-slash"
 style = "slash-slash"
 
 [extensions.css]
+prologue = "css-charset"
 style = "slash-star"
 
 [extensions.go]
