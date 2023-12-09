@@ -23,6 +23,22 @@ Please see the fragment files in the `changelog.d directory`_.
 
 ..  scriv-insert-here
 
+.. _changelog-0.7.0:
+
+0.7.0 - 2023-12-09
+==================
+
+Added
+-----
+
+*   Support CSS ``@charset`` prologues.
+
+Fixed
+-----
+
+*   Log relevant information where many exceptions are raised.
+*   Catch exceptions instead of letting them bubble up as a crash.
+
 .. _changelog-0.6.0:
 
 0.6.0 - 2023-12-07
