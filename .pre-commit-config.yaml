@@ -20,7 +20,7 @@ repos:
       - id: 'trailing-whitespace'
 
   - repo: 'https://github.com/kurtmckee/chipshot'
-    rev: 'v0.6.0'
+    rev: 'v0.7.0'
     hooks:
       - id: 'update-headers'
 
