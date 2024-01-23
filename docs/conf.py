@@ -33,6 +33,7 @@ html_static_path = [
 ]
 html_theme_options = {
     "logo": "logo.png",
+    "logo_name": "Chipshot",
     # Link to GitHub
     "github_user": "kurtmckee",
     "github_repo": "chipshot",
