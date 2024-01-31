@@ -12,8 +12,8 @@ import chipshot.reader.prologue
 variants = pytest.mark.parametrize(
     "variant",
     (
-        (pytest.param("bogus", id="suffix")),
-        (pytest.param("bogus.bogus", id="suffixes")),
+        pytest.param("bogus", id="suffix"),
+        pytest.param("bogus.bogus", id="suffixes"),
     ),
 )
 
