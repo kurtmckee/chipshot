@@ -1,63 +1,71 @@
 ci:
-  autoupdate_schedule: 'monthly'
+  autoupdate_schedule: "quarterly"
+
+default_language_version:
+  python: "python3.12"
 
 repos:
-  - repo: 'meta'
+  - repo: "meta"
     hooks:
-      - id: 'check-hooks-apply'
-      - id: 'check-useless-excludes'
+      - id: "check-hooks-apply"
+      - id: "check-useless-excludes"
 
-  - repo: 'https://github.com/pre-commit/pre-commit-hooks'
-    rev: 'v4.5.0'
+  - repo: "https://github.com/pre-commit/pre-commit-hooks"
+    rev: "v4.5.0"
     hooks:
-      - id: 'check-added-large-files'
-      - id: 'check-merge-conflict'
-      - id: 'check-yaml'
-      - id: 'end-of-file-fixer'
-      - id: 'mixed-line-ending'
+      - id: "check-added-large-files"
+      - id: "check-merge-conflict"
+      - id: "check-yaml"
+      - id: "end-of-file-fixer"
+      - id: "mixed-line-ending"
         args:
-          - '--fix=lf'
-      - id: 'trailing-whitespace'
+          - "--fix=lf"
+      - id: "trailing-whitespace"
 
-  - repo: 'https://github.com/kurtmckee/chipshot'
-    rev: 'v0.7.0'
+  - repo: "https://github.com/kurtmckee/chipshot"
+    rev: "v0.7.0"
     hooks:
-      - id: 'update-headers'
+      - id: "update-headers"
 
-  - repo: 'https://github.com/asottile/pyupgrade'
-    rev: 'v3.15.0'
+  - repo: "https://github.com/asottile/pyupgrade"
+    rev: "v3.15.1"
     hooks:
-      - id: 'pyupgrade'
-        name: 'Enforce Python 3.8+ idioms'
-        args: ['--py38-plus']
+      - id: "pyupgrade"
+        name: "Enforce Python 3.8+ idioms"
+        args: ["--py38-plus"]
 
-  - repo: 'https://github.com/psf/black-pre-commit-mirror'
-    rev: '24.1.1'
+  - repo: "https://github.com/psf/black-pre-commit-mirror"
+    rev: "24.2.0"
     hooks:
-      - id: 'black'
+      - id: "black"
 
-  - repo: 'https://github.com/pycqa/isort'
-    rev: '5.13.2'
+  - repo: "https://github.com/pycqa/isort"
+    rev: "5.13.2"
     hooks:
-      - id: 'isort'
+      - id: "isort"
 
-  - repo: 'https://github.com/pycqa/flake8'
-    rev: '7.0.0'
+  - repo: "https://github.com/pycqa/flake8"
+    rev: "7.0.0"
     hooks:
-      - id: 'flake8'
+      - id: "flake8"
         additional_dependencies:
-          - 'flake8-bugbear==24.1.17'
+          - "flake8-bugbear==24.2.6"
 
-  - repo: 'https://github.com/editorconfig-checker/editorconfig-checker.python'
-    rev: '2.7.3'
+  - repo: "https://github.com/editorconfig-checker/editorconfig-checker.python"
+    rev: "2.7.3"
     hooks:
-      - id: 'editorconfig-checker'
+      - id: "editorconfig-checker"
         # The README contains YAML that isn't indented using 4 spaces.
-        exclude: 'README.rst'
+        exclude: "README.rst"
 
-  - repo: 'https://github.com/python-jsonschema/check-jsonschema'
-    rev: '0.27.4'
+  - repo: "https://github.com/python-jsonschema/check-jsonschema"
+    rev: "0.28.0"
     hooks:
-      - id: 'check-readthedocs'
-      - id: 'check-dependabot'
-      - id: 'check-github-workflows'
+      - id: "check-readthedocs"
+      - id: "check-dependabot"
+      - id: "check-github-workflows"
+
+  - repo: "https://github.com/rhysd/actionlint"
+    rev: "v1.6.27"
+    hooks:
+      - id: "actionlint"
