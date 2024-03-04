@@ -64,3 +64,8 @@ repos:
       - id: "check-readthedocs"
       - id: "check-dependabot"
       - id: "check-github-workflows"
+
+  - repo: "https://github.com/rhysd/actionlint"
+    rev: "v1.6.27"
+    hooks:
+      - id: "actionlint"
