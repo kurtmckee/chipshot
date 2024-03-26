@@ -1,0 +1,13 @@
+[tool.poetry.dependencies]
+python = ">=3.8"
+coverage = { version = "*", extras = ["toml"] }
+pyfakefs = "*"
+pytest = "*"
+pytest-randomly = "*"
+
+
+[tool.poetry]
+name = "requirements"
+version = "0"
+description = ""
+authors = []
