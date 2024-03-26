@@ -1,0 +1,10 @@
+[tool.poetry.dependencies]
+python = ">=3.8"
+mypy = "*"
+
+
+[tool.poetry]
+name = "requirements"
+version = "0"
+description = ""
+authors = []

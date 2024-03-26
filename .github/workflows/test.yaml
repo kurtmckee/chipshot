@@ -62,7 +62,7 @@ jobs:
             .mypy_cache/
             .tox/
             .venv/
-          key: "test-os=${{ runner.os }}-hash=${{ hashFiles('.python-identifiers', 'tox.ini', 'requirements/*.txt') }}"
+          key: "test-os=${{ runner.os }}-hash=${{ hashFiles('.python-identifiers', 'tox.ini', 'requirements/*/*.txt') }}"
 
       - name: "Identify venv path"
         shell: "bash"

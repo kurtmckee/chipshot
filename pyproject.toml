@@ -22,18 +22,6 @@ importlib_resources = { version = "*", python = "<3.9" }
 jinja2 = "*"
 tomli = { version = "*", python = "<3.11" }
 
-[tool.poetry.group.test.dependencies]
-coverage = { version = "*", extras = ["toml"] }
-pyfakefs = "*"
-pytest = "*"
-pytest-randomly = "*"
-
-[tool.poetry.group.mypy.dependencies]
-mypy = "*"
-
-[tool.poetry.group.docs.dependencies]
-sphinx = { version = "*", python = "3.12" }
-
 [tool.poetry.scripts]
 chipshot = "chipshot.cli:run"
 
