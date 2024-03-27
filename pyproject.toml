@@ -71,6 +71,8 @@ categories = [
     "Changed",
     "Deprecated",
     "Security",
+    "Documentation",
+    "Development",
 ]
 entry_title_template = "{{ version }} - {{ date.strftime('%Y-%m-%d') }}"
 format = "rst"
