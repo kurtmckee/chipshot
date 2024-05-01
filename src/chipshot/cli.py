@@ -71,10 +71,14 @@ def run(
     log = logging.getLogger(__name__)
 
     # Load the configuration.
-    if config_file is None:
-        configuration = config.load()
-    else:
-        configuration = config.load(pathlib.Path(config_file))
+    try:
+        if config_file is None:
+            configuration = config.load()
+        else:
+            configuration = config.load(pathlib.Path(config_file))
+    except chipshot.exceptions.ConfigNotFound as error:
+        log.error(error.args[0])
+        raise click.exceptions.Exit(2)
 
     for path in _get_files(paths, configuration):
         try:
