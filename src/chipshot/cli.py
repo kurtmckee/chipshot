@@ -133,7 +133,7 @@ def run(
 
 def _get_files(
     paths: tuple[str], configuration: dict[str, typing.Any]
-) -> typing.Generator[pathlib.Path, None, None]:
+) -> typing.Generator[pathlib.Path]:
     exclusions: list[pathlib.Path] = [
         pathlib.Path(exclusion) for exclusion in configuration.get("exclusions", [])
     ]
