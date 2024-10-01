@@ -6,5 +6,6 @@
 /.coverage.*
 /.coverage
 /TODO.rst
+/requirements/*/poetry.lock
 
 __pycache__/

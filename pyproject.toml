@@ -16,7 +16,7 @@ repository = "https://github.com/kurtmckee/chipshot"
 documentation = "https://chipshot.readthedocs.io"
 
 [tool.poetry.dependencies]
-python = ">=3.8"
+python = ">=3.9"
 click = "*"
 importlib_resources = { version = "*", python = "<3.9" }
 jinja2 = "*"
@@ -89,4 +89,6 @@ new_fragment_template = "file: fragment-template.rst.txt"
 addopts = "--color=yes"
 filterwarnings = [
     "error",
+    # pyfakefs 5.6.0 on Python 3.13
+    "ignore:unclosed file:ResourceWarning:pyfakefs"
 ]

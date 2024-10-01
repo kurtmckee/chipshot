@@ -5,15 +5,11 @@
 from __future__ import annotations
 
 import copy
+import importlib.resources as importlib_resources
 import logging
 import pathlib
 import sys
 import typing as t
-
-if sys.version_info >= (3, 9):
-    import importlib.resources as importlib_resources
-else:  # Python < 3.9
-    import importlib_resources
 
 if sys.version_info >= (3, 11):
     import tomllib
