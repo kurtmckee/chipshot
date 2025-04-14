@@ -18,7 +18,7 @@ copyright = f"2022-{datetime.datetime.now().strftime('%Y')} Kurt McKee"
 # Extract the project version.
 pyproject_ = pathlib.Path(__file__).parent.parent / "pyproject.toml"
 info_ = tomllib.loads(pyproject_.read_text())
-version = release = info_["tool"]["poetry"]["version"]
+version = release = info_["project"]["version"]
 
 # The name of the Pygments (syntax highlighting) style to use.
 pygments_style = "sphinx"
