@@ -31,8 +31,7 @@ Please see the fragment files in the `changelog.d directory`_.
 Python support
 --------------
 
-*   Test against Python 3.13 pre-releases.
-
+*   Support Python 3.13.
 *   Drop Python 3.8 support.
 
 Changed
@@ -49,7 +48,6 @@ Development
 -----------
 
 *   Separate test, lint, and doc dependencies from project dependencies.
-
 *   Migrate to PEP 621 metadata.
 *   Use Python 3.13 for most build processes.
 *   Add a reusable workflow to prepare releases.
