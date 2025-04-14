@@ -1,4 +1,0 @@
-Python support
---------------
-
-*   Test against Python 3.13 pre-releases.
