@@ -1,6 +1,6 @@
 [project]
 name = "chipshot"
-version = "0.7.0"
+version = "0.8.0"
 description = "Set up game-winning headers!"
 readme = "README.rst"
 authors = [

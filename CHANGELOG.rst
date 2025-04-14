@@ -23,6 +23,37 @@ Please see the fragment files in the `changelog.d directory`_.
 
 ..  scriv-insert-here
 
+.. _changelog-0.8.0:
+
+0.8.0 - 2025-04-14
+==================
+
+Python support
+--------------
+
+*   Test against Python 3.13 pre-releases.
+
+*   Drop Python 3.8 support.
+
+Changed
+-------
+
+*   Show a nice message -- not a traceback -- when a config file contains no configuration.
+
+Documentation
+-------------
+
+*   Switch to ``dirhtml`` builds.
+
+Development
+-----------
+
+*   Separate test, lint, and doc dependencies from project dependencies.
+
+*   Migrate to PEP 621 metadata.
+*   Use Python 3.13 for most build processes.
+*   Add a reusable workflow to prepare releases.
+
 .. _changelog-0.7.0:
 
 0.7.0 - 2023-12-09
