@@ -24,7 +24,7 @@ boms = pytest.mark.parametrize(
 )
 
 
-emoji = "\N{Smiling Face with Sunglasses}"
+emoji = "\N{SMILING FACE WITH SUNGLASSES}"
 
 
 @encodings
