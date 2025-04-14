@@ -1,5 +1,5 @@
 # This file is a part of Chipshot <https://github.com/kurtmckee/chipshot>
-# Copyright 2022-2023 Kurt McKee <contactme@kurtmckee.org>
+# Copyright 2022-2025 Kurt McKee <contactme@kurtmckee.org>
 # SPDX-License-Identifier: MIT
 
 from __future__ import annotations
@@ -71,10 +71,14 @@ def run(
     log = logging.getLogger(__name__)
 
     # Load the configuration.
-    if config_file is None:
-        configuration = config.load()
-    else:
-        configuration = config.load(pathlib.Path(config_file))
+    try:
+        if config_file is None:
+            configuration = config.load()
+        else:
+            configuration = config.load(pathlib.Path(config_file))
+    except chipshot.exceptions.ConfigNotFound as error:
+        log.error(error.args[0])
+        raise click.exceptions.Exit(2)
 
     for path in _get_files(paths, configuration):
         try:
@@ -129,7 +133,7 @@ def run(
 
 def _get_files(
     paths: tuple[str], configuration: dict[str, typing.Any]
-) -> typing.Generator[pathlib.Path, None, None]:
+) -> typing.Generator[pathlib.Path]:
     exclusions: list[pathlib.Path] = [
         pathlib.Path(exclusion) for exclusion in configuration.get("exclusions", [])
     ]

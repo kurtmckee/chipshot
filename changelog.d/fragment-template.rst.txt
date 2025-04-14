@@ -1,23 +1,23 @@
 ..
 
-    Please select the correct category for the change you are making.
+    Select the correct category for the change you are making.
 
-    1.  Remove all lines before and after the chosen category
+    1.  Remove all lines before and after the chosen category,
         including these instructions.
 
     2.  Describe your change using active verbs in the present tense,
         and use full sentences with correct punctuation.
 
-        For example, write "Support frobulating sprockets."
+        For example, write "Support sprocket frobulation."
 
-        Don't write "Supports frobulating sprockets",
-        or "added sprocket frobulation".
+        Don't write "Supports sprocket frobulation",
+        or "supports sprocket frobulation".
 
     3.  If your change is associated with an issue on GitHub,
         list the issue number(s) in parentheses, separated by
         commas. For example:
 
-            Support a new feature. (#10, #20)
+            Support sprocket frobulation. (#10, #20)
 
     Thanks for contributing!
 
@@ -25,4 +25,5 @@
 {{ category }}
 {{ config.rst_header_chars[1] * (category|length) }}
 {% endfor -%}
-*   Describe your change.
+
+*   CHANGEME

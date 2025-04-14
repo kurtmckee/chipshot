@@ -1,19 +1,15 @@
 # This file is a part of Chipshot <https://github.com/kurtmckee/chipshot>
-# Copyright 2022-2023 Kurt McKee <contactme@kurtmckee.org>
+# Copyright 2022-2025 Kurt McKee <contactme@kurtmckee.org>
 # SPDX-License-Identifier: MIT
 
 from __future__ import annotations
 
 import copy
+import importlib.resources as importlib_resources
 import logging
 import pathlib
 import sys
 import typing as t
-
-if sys.version_info >= (3, 9):
-    import importlib.resources as importlib_resources
-else:  # Python < 3.9
-    import importlib_resources
 
 if sys.version_info >= (3, 11):
     import tomllib

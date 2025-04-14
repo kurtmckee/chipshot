@@ -1,77 +1,53 @@
-name: "🔬 Test"
+name: "🧪 Test"
 
 on:
   pull_request:
   push:
-      branches:
-        - "main"
-        - "releases"
-
+    branches:
+      - "main"
+      - "releases"
 
 jobs:
   test:
-    name: "${{ matrix.os.name }}"
-    runs-on: "${{ matrix.os.id }}"
+    name:
+      "${{
+        (startswith(matrix.runner, 'ubuntu') && 'Linux')
+        || (startswith(matrix.runner, 'macos') && 'macOS')
+        || (startswith(matrix.runner, 'windows') && 'Windows')
+      }}"
 
     strategy:
+      fail-fast: false
       matrix:
-        os:
-          - id: "ubuntu-latest"
-            name: "Ubuntu"
-          - id: "macos-latest"
-            name: "macOS"
-          - id: "windows-latest"
-            name: "Windows"
-        cpythons:
-          # This list-in-list syntax creates a single-element list,
-          # and that single element is a full list of Python versions.
-          # It means each runner will receive a list of all Python versions.
-          - - "3.8"
-            - "3.9"
-            - "3.10"
-            - "3.11"
-            - "3.12"
+        runner:
+          - "ubuntu-latest"
+          - "macos-latest"
+          - "windows-latest"
 
-    steps:
-      - name: "Checkout branch"
-        uses: "actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11" # v4.1.1
+        include:
+          # These values will be applied to all runners listed above.
+          - cpythons:
+              - "3.9"
+              - "3.10"
+              - "3.11"
+              - "3.12"
+            cpython-beta: "3.13"
+            tox-post-environments:
+              - "coverage-report-ci"
+              - "mypy"
+            cache-paths:
+              - ".mypy_cache/"
+            cache-key-hash-files:
+              - "pyproject.toml"
+              - "requirements/*/*.txt"
 
-      - name: "Setup Pythons"
-        id: "setup-python"
-        uses: "actions/setup-python@65d7f2d534ac1bc67fcd62888c5f4f3d2cb2b236" # v4.7.1
-        with:
-          python-version: "${{ join(matrix.cpythons, '\n') }}"
-          allow-prereleases: true
+          # Add documentation testing when running on Ubuntu.
+          - runner: "ubuntu-latest"
+            tox-post-environments:
+              - "coverage-report-ci"
+              - "mypy"
+              - "docs"
 
-      - name: "Detect Pythons"
-        uses: "kurtmckee/detect-pythons@cd2193638306e04e41ac36f0f9290f18680138ac" # v1.0.0
-
-      - name: "Restore cache"
-        id: "restore-cache"
-        uses: "actions/cache@704facf57e6136b1bc63b828d79edcd491f0ee84" # v3.3.2
-        with:
-          path: |
-            .mypy_cache/
-            .tox/
-            .venv/
-          key: "test-os=${{ runner.os }}-hash=${{ hashFiles('.python-identifiers', 'tox.ini', 'requirements/*.txt') }}"
-
-      - name: "Identify venv path"
-        shell: "bash"
-        run: "echo 'venv-path=.venv/${{ runner.os == 'Windows' && 'Scripts' || 'bin' }}' >> $GITHUB_ENV"
-
-      - name: "Create a virtual environment"
-        if: "steps.restore-cache.outputs.cache-hit == false"
-        run: |
-          python -m venv .venv
-          ${{ env.venv-path }}/python -m pip install --upgrade pip setuptools wheel
-          ${{ env.venv-path }}/pip install tox
-
-      - name: "Test"
-        run: |
-          ${{ env.venv-path }}/tox run --colored yes -e py${{ join(matrix.cpythons, ',py') }},coverage-report-ci,mypy
-
-      - name: "Docs"
-        if: "matrix.os.name == 'Ubuntu'"
-        run: |
-          ${{ env.venv-path }}/tox run --colored yes -e docs
+    uses: "kurtmckee/github-workflows/.github/workflows/tox.yaml@ca26472ada33aa277527450aa46436f530e3d2c1" # v1.4
+    with:
+      config: "${{ toJSON(matrix) }}"

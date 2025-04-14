@@ -1,6 +1,6 @@
 ..
     This file is a part of Chipshot <https://github.com/kurtmckee/chipshot>
-    Copyright 2022-2023 Kurt McKee <contactme@kurtmckee.org>
+    Copyright 2022-2025 Kurt McKee <contactme@kurtmckee.org>
     SPDX-License-Identifier: MIT
 
 ..
@@ -22,6 +22,35 @@ Please see the fragment files in the `changelog.d directory`_.
 ..  _changelog.d directory: https://github.com/kurtmckee/chipshot/tree/main/changelog.d
 
 ..  scriv-insert-here
+
+.. _changelog-0.8.0:
+
+0.8.0 - 2025-04-14
+==================
+
+Python support
+--------------
+
+*   Support Python 3.13.
+*   Drop Python 3.8 support.
+
+Changed
+-------
+
+*   Show a nice message -- not a traceback -- when a config file contains no configuration.
+
+Documentation
+-------------
+
+*   Switch to ``dirhtml`` builds.
+
+Development
+-----------
+
+*   Separate test, lint, and doc dependencies from project dependencies.
+*   Migrate to PEP 621 metadata.
+*   Use Python 3.13 for most build processes.
+*   Add a reusable workflow to prepare releases.
 
 .. _changelog-0.7.0:
 

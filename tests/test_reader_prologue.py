@@ -1,5 +1,5 @@
 # This file is a part of Chipshot <https://github.com/kurtmckee/chipshot>
-# Copyright 2022-2023 Kurt McKee <contactme@kurtmckee.org>
+# Copyright 2022-2025 Kurt McKee <contactme@kurtmckee.org>
 # SPDX-License-Identifier: MIT
 
 import pathlib
@@ -12,8 +12,8 @@ import chipshot.reader.prologue
 variants = pytest.mark.parametrize(
     "variant",
     (
-        (pytest.param("bogus", id="suffix")),
-        (pytest.param("bogus.bogus", id="suffixes")),
+        pytest.param("bogus", id="suffix"),
+        pytest.param("bogus.bogus", id="suffixes"),
     ),
 )
 
