@@ -6,7 +6,7 @@ readme = "README.rst"
 authors = [
     { name = "Kurt McKee", email = "contactme@kurtmckee.org" }
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = "MIT"
 repository = "https://github.com/kurtmckee/chipshot"
 documentation = "https://chipshot.readthedocs.io"
