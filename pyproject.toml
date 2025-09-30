@@ -72,6 +72,7 @@ sqlite_cache = true
 version = "literal: pyproject.toml: project.version"
 categories = [
     "Python support",
+    "Default styles",
     "Added",
     "Fixed",
     "Removed",
