@@ -150,6 +150,9 @@ style = "slash-slash"
 [extensions.kts]
 style = "slash-slash"
 
+[extensions.ly]
+style = "percent"
+
 [extensions.markdown]
 style = "xml"
 
@@ -200,6 +203,9 @@ style = "dash-dash"
 
 [extensions.swift]
 style = "slash-slash"
+
+[extensions.tex]
+style = "percent"
 
 [extensions.ts]
 style = "slash-slash"
