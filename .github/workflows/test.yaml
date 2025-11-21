@@ -31,12 +31,14 @@ jobs:
               - "3.11"
               - "3.12"
               - "3.13"
-            cpython-beta: "3.14"
+              - "3.14"
             cache-paths:
               - ".mypy_cache/"
             cache-key-hash-files:
               - "pyproject.toml"
               - "requirements/*/*.txt"
+            tox-skip-environments:
+              - "coverage-html"
 
     uses: "kurtmckee/github-workflows/.github/workflows/tox.yaml@a8716fc28daeb38133a50ef8dce70df9c65988ad" # v1.5
     with:
