@@ -51,8 +51,6 @@ repos:
     rev: "v3.5.0"
     hooks:
       - id: "editorconfig-checker"
-        # The README contains YAML that isn't indented using 4 spaces.
-        exclude: "README.rst"
 
   - repo: "https://github.com/python-jsonschema/check-jsonschema"
     rev: "0.35.0"
