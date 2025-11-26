@@ -23,6 +23,33 @@ Please see the fragment files in the `changelog.d directory`_.
 
 ..  scriv-insert-here
 
+.. _changelog-0.9.0:
+
+0.9.0 - 2025-11-26
+==================
+
+Python support
+--------------
+
+*   Support Python 3.14.
+
+*   Drop support for Python 3.9.
+
+Default styles
+--------------
+
+*   Support ``.tex`` (TeX/LaTeX).
+*   Support ``.ly`` (Lilypond).
+
+Development
+-----------
+
+*   Migrate the flake8 configuration to ``pyproject.toml`` using
+    the `flake8-toml-config <https://github.com/kurtmckee/flake8-toml-config>`_ plugin.
+
+*   Test type annotations against all supported Python versions.
+*   Lock the GitHub CI runners to known, predictable versions.
+
 .. _changelog-0.8.0:
 
 0.8.0 - 2025-04-14
