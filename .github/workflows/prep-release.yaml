@@ -9,7 +9,7 @@ on:
         required: true
 
 jobs:
-  prep-release:
+  prep_release:
     name: "Prep release v${{ inputs.version }}"
 
     permissions:
@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - tox-label-create-changes: "prep-release"
+          - tox-label-create-changes: "prep_release"
             branch-name: "release/$VERSION"
             commit-title: "Update project metadata"
             pr-base: "releases"
