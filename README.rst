@@ -51,11 +51,21 @@ Chipshot offers two pre-commit hooks to help you manage your projects:
 
 Here's a sample configuration for ensuring your files have correct headers:
 
+..  # [[[cog
+..  # import assets.update_readme_pre_commit_example
+..  # assets.update_readme_pre_commit_example.main()
+..  # ]]]
+
+..  DO NOT EDIT THIS CODE BLOCK!
+..  INSTEAD, EDIT assets/update_readme_pre_commit_example.py.
+
 ..  code-block:: yaml
 
-    # .pre-commit-config.yaml
+    # Filename: .pre-commit-config.yaml
     repos:
       - repo: 'https://github.com/kurtmckee/chipshot'
-        rev: 'v0.4.0'
+        rev: 'v0.8.0'
         hooks:
           - id: 'update-headers'
+
+..  # [[[end]]]

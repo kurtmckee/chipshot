@@ -70,3 +70,14 @@ repos:
     rev: "e7a0fdfcf7fd4c549a32da19187adf3a0b279d4d"  # frozen: v1.0.0
     hooks:
       - id: "verify-consistent-pyproject-toml-python-requirements"
+
+  - repo: "local"
+    hooks:
+      - id: "update-readme-pre-commit-example"
+        name: "Update the README's pre-commit config example"
+        language: "python"
+        entry: "cog -rP README.rst"
+        files: "pyproject\\.toml|assets/update_readme_pre_commit_example\\.py"
+        pass_filenames: false
+        additional_dependencies:
+          - "cogapp==3.6.0"
