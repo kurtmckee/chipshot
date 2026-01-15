@@ -8,15 +8,10 @@ import copy
 import importlib.resources as importlib_resources
 import logging
 import pathlib
-import sys
 import typing as t
 
-if sys.version_info >= (3, 11):
-    import tomllib
-else:  # Python < 3.11
-    import tomli as tomllib
-
 from . import exceptions, resources
+from ._compat.py310 import tomllib
 from .shared import FileInfo
 
 log = logging.getLogger(__name__)
