@@ -117,6 +117,9 @@ style = "slash-slash"
 prologue = "css-charset"
 style = "slash-star"
 
+[extensions.gd]
+style = "hash"
+
 [extensions.go]
 style = "slash-slash"
 
