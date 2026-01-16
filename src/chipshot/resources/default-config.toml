@@ -134,6 +134,9 @@ prologue = "html_doctype"
 style = "html"
 prologue = "html_doctype"
 
+[extensions.hx]
+style = "slash-slash"
+
 [extensions.java]
 style = "slash-slash"
 
