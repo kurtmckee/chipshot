@@ -32,18 +32,15 @@ Python support
 --------------
 
 *   Support Python 3.14.
-
 *   Drop support for Python 3.9.
 
 Default styles
 --------------
 
-*   Support ``.tex`` (TeX/LaTeX).
-*   Support ``.ly`` (Lilypond).
-
-* Support ``.hx`` (Haxe).
-
 *   Support ``.gd`` (Godot).
+*   Support ``.hx`` (Haxe).
+*   Support ``.ly`` (Lilypond).
+*   Support ``.tex`` (TeX/LaTeX).
 
 Fixed
 -----
@@ -61,15 +58,10 @@ Development
 
 *   Test type annotations against all supported Python versions.
 *   Lock the GitHub CI runners to known, predictable versions.
-
 *   Fix and expand the project URLs listed in ``pyproject.toml``.
-
 *   Test package building on minimum Python and build system versions.
-
 *   Automatically maintain the pre-commit config example in the README.
-
 *   Introduce a compatibility module for conditional code.
-
 *   Use Trusted Publishing to publish new releases.
 
 .. _changelog-0.8.0:
