@@ -23,6 +23,55 @@ Please see the fragment files in the `changelog.d directory`_.
 
 ..  scriv-insert-here
 
+.. _changelog-0.9.0:
+
+0.9.0 - 2026-02-07
+==================
+
+Python support
+--------------
+
+*   Support Python 3.14.
+
+*   Drop support for Python 3.9.
+
+Default styles
+--------------
+
+*   Support ``.tex`` (TeX/LaTeX).
+*   Support ``.ly`` (Lilypond).
+
+* Support ``.hx`` (Haxe).
+
+*   Support ``.gd`` (Godot).
+
+Fixed
+-----
+
+*   Support setting custom extension configurations in user config.
+
+    Previously, setting an extension (like ``chipshot.extensions.yaml``)
+    would erase all of the default extension configurations.
+
+Development
+-----------
+
+*   Migrate the flake8 configuration to ``pyproject.toml`` using
+    the `flake8-toml-config <https://github.com/kurtmckee/flake8-toml-config>`_ plugin.
+
+*   Test type annotations against all supported Python versions.
+*   Lock the GitHub CI runners to known, predictable versions.
+
+*   Fix and expand the project URLs listed in ``pyproject.toml``.
+
+*   Test package building on minimum Python and build system versions.
+
+*   Automatically maintain the pre-commit config example in the README.
+
+*   Introduce a compatibility module for conditional code.
+
+*   Use Trusted Publishing to publish new releases.
+
 .. _changelog-0.8.0:
 
 0.8.0 - 2025-04-14
