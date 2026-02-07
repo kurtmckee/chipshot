@@ -1,5 +1,5 @@
 # This file is a part of Chipshot <https://github.com/kurtmckee/chipshot>
-# Copyright 2022-2025 Kurt McKee <contactme@kurtmckee.org>
+# Copyright 2022-2026 Kurt McKee <contactme@kurtmckee.org>
 # SPDX-License-Identifier: MIT
 
 import pathlib
@@ -23,13 +23,11 @@ def test_render_header(default_config, rendered_file: pathlib.Path):
     expected = rendered_file.read_text()
     file = chipshot.shared.FileInfo(rendered_file, raw_contents=b"")
     rendered = chipshot.render.render_header(file, default_config)
-    fail_message = textwrap.dedent(
-        """
+    fail_message = textwrap.dedent("""
         Expected:
         {0}
 
         Rendered:
         {1}
-    """
-    ).format(expected, rendered)
+    """).format(expected, rendered)
     assert expected.startswith(rendered), fail_message

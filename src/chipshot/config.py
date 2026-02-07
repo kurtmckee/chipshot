@@ -1,5 +1,5 @@
 # This file is a part of Chipshot <https://github.com/kurtmckee/chipshot>
-# Copyright 2022-2025 Kurt McKee <contactme@kurtmckee.org>
+# Copyright 2022-2026 Kurt McKee <contactme@kurtmckee.org>
 # SPDX-License-Identifier: MIT
 
 from __future__ import annotations
@@ -8,15 +8,10 @@ import copy
 import importlib.resources as importlib_resources
 import logging
 import pathlib
-import sys
 import typing as t
 
-if sys.version_info >= (3, 11):
-    import tomllib
-else:  # Python < 3.11
-    import tomli as tomllib
-
 from . import exceptions, resources
+from ._compat.py310 import tomllib
 from .shared import FileInfo
 
 log = logging.getLogger(__name__)
@@ -49,8 +44,7 @@ def load(path: str | pathlib.Path | None = None) -> dict[str, t.Any]:
         log.debug(f"Loading config file '{path}'")
         custom_config = _load_toml(path)
 
-    config = _load_default_config()
-    config.update(custom_config)
+    config = _integrate_configs(_load_default_config(), custom_config)
 
     return _normalize_config(config)
 
@@ -161,3 +155,31 @@ def _normalize_config(configuration: dict[str, t.Any]) -> dict[str, t.Any]:
         result["styles"][key] = style
 
     return result
+
+
+def _integrate_configs(
+    base_config: dict[str, t.Any],
+    new_config: dict[str, t.Any],
+) -> dict[str, t.Any]:
+    """Integrate an additional configuration into an existing configuration.
+
+    This differs from a simple `dict.update()` call because it is semi-recursive.
+    """
+
+    integrated_config: dict[str, t.Any] = {}
+
+    unique_base_keys = set(base_config) - set(new_config)
+    unique_new_keys = set(new_config) - set(base_config)
+    shared_keys = set(base_config) & set(new_config)
+
+    integrated_config.update({key: base_config[key] for key in unique_base_keys})
+    integrated_config.update({key: new_config[key] for key in unique_new_keys})
+
+    # Integrate overlapping keys.
+    for key in shared_keys:
+        if isinstance(value := base_config[key], dict):
+            integrated_config[key] = _integrate_configs(value, new_config.get(key, {}))
+        else:
+            integrated_config[key] = value
+
+    return integrated_config

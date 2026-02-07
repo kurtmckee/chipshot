@@ -1,15 +1,13 @@
 [project]
 name = "chipshot"
-version = "0.8.0"
+version = "0.9.0"
 description = "Set up game-winning headers!"
 readme = "README.rst"
 authors = [
     { name = "Kurt McKee", email = "contactme@kurtmckee.org" }
 ]
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 license = "MIT"
-repository = "https://github.com/kurtmckee/chipshot"
-documentation = "https://chipshot.readthedocs.io"
 dependencies = [
     "click >= 8.1.7",
     "jinja2 >= 3.1.3",
@@ -18,6 +16,13 @@ dependencies = [
 
 [project.scripts]
 chipshot = "chipshot.cli:run"
+
+[project.urls]
+Source = "https://github.com/kurtmckee/chipshot"
+Documentation = "https://chipshot.readthedocs.io"
+Changelog = "https://chipshot.readthedocs.io/en/latest/changelog/"
+"Donate via GitHub" = "https://github.com/sponsors/kurtmckee"
+"Donate via Ko-Fi" = "https://ko-fi.com/kurtmckee"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
@@ -47,6 +52,15 @@ skip_covered = true
 fail_under = 85
 
 
+# flake8
+# ------
+
+[tool.flake8]
+max-line-length = 80
+extend-select = ["B950"]
+extend-ignore = ["E203", "E501", "E701"]
+
+
 # mypy
 # ----
 
@@ -56,6 +70,19 @@ strict = true
 sqlite_cache = true
 
 
+# pytest
+# ------
+
+[tool.pytest]
+addopts = [
+    "--color=yes",
+]
+filterwarnings = [
+    "error",
+]
+strict = true
+
+
 # scriv
 # -----
 
@@ -63,6 +90,7 @@ sqlite_cache = true
 version = "literal: pyproject.toml: project.version"
 categories = [
     "Python support",
+    "Default styles",
     "Added",
     "Fixed",
     "Removed",
@@ -78,13 +106,3 @@ fragment_directory = "changelog.d"
 insert_marker = "scriv-insert-here"
 main_branches = ["main", "releases"]
 new_fragment_template = "file: fragment-template.rst.txt"
-
-
-# pytest
-# ------
-
-[tool.pytest.ini_options]
-addopts = "--color=yes"
-filterwarnings = [
-    "error",
-]

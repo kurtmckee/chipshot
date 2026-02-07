@@ -11,7 +11,7 @@ repos:
       - id: "check-useless-excludes"
 
   - repo: "https://github.com/pre-commit/pre-commit-hooks"
-    rev: "v5.0.0"
+    rev: "3e8a8703264a2f4a69428a0aa4dcb512790b2c8c"  # frozen: v6.0.0
     hooks:
       - id: "check-added-large-files"
       - id: "check-merge-conflict"
@@ -22,55 +22,62 @@ repos:
           - "--fix=lf"
       - id: "trailing-whitespace"
 
-  - repo: "https://github.com/kurtmckee/chipshot"
-    rev: "v0.7.0"
-    hooks:
-      - id: "update-headers"
-
   - repo: "https://github.com/asottile/pyupgrade"
-    rev: "v3.19.1"
+    rev: "75992aaa40730136014f34227e0135f63fc951b4"  # frozen: v3.21.2
     hooks:
       - id: "pyupgrade"
-        name: "Enforce Python 3.9+ idioms"
-        args: ["--py39-plus"]
+        name: "Enforce Python 3.10+ idioms"
+        args: ["--py310-plus"]
 
   - repo: "https://github.com/psf/black-pre-commit-mirror"
-    rev: "25.1.0"
+    rev: "ea488cebbfd88a5f50b8bd95d5c829d0bb76feb8"  # frozen: 26.1.0
     hooks:
       - id: "black"
 
   - repo: "https://github.com/pycqa/isort"
-    rev: "6.0.1"
+    rev: "0a09c783808cfe77bb3269250f663ff733d23302"  # frozen: 7.0.0
     hooks:
       - id: "isort"
 
   - repo: "https://github.com/pycqa/flake8"
-    rev: "7.2.0"
+    rev: "c48217e1fc006c2dddd14df54e83b67da15de5cd"  # frozen: 7.3.0
     hooks:
       - id: "flake8"
         additional_dependencies:
-          - "flake8-bugbear==24.12.12"
+          - "flake8-toml-config==1.0.0"
+          - "flake8-bugbear==25.11.29"
 
   - repo: "https://github.com/editorconfig-checker/editorconfig-checker"
-    rev: "v3.2.1"
+    rev: "aa06cea887b26f372f9368aa53665266ec6dc364"  # frozen: v3.6.1
     hooks:
       - id: "editorconfig-checker"
-        # The README contains YAML that isn't indented using 4 spaces.
-        exclude: "README.rst"
 
   - repo: "https://github.com/python-jsonschema/check-jsonschema"
-    rev: "0.33.0"
+    rev: "ba8f7ac0e0c0d25bae15b628b634316e7d201db5"  # frozen: 0.36.1
     hooks:
       - id: "check-readthedocs"
       - id: "check-dependabot"
       - id: "check-github-workflows"
 
   - repo: "https://github.com/rhysd/actionlint"
-    rev: "v1.7.7"
+    rev: "0933c147c9d6587653d45fdcb4c497c57a65f9af"  # frozen: v1.7.10
     hooks:
       - id: "actionlint"
+        additional_dependencies:
+          - "github.com/wasilibs/go-shellcheck/cmd/shellcheck@4e7020840c303923eb1ab846fc446d77be892570"  # frozen: v0.11.1
 
   - repo: "https://github.com/kurtmckee/pre-commit-hooks"
-    rev: "v1.0.0"
+    rev: "44b638c826f1acd2ba2c5995db3156be60c5efea"  # frozen: v1.0.0
     hooks:
       - id: "verify-consistent-pyproject-toml-python-requirements"
+
+  - repo: "local"
+    hooks:
+      - id: "update-readme-pre-commit-example"
+        name: "Update the README's pre-commit config example"
+        language: "python"
+        entry: "cog -rP README.rst"
+        files: "pyproject\\.toml|assets/update_readme_pre_commit_example\\.py"
+        pass_filenames: false
+        additional_dependencies:
+          - "cogapp==3.6.0"

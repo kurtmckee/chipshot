@@ -1,5 +1,5 @@
 # This file is a part of Chipshot <https://github.com/kurtmckee/chipshot>
-# Copyright 2022-2025 Kurt McKee <contactme@kurtmckee.org>
+# Copyright 2022-2026 Kurt McKee <contactme@kurtmckee.org>
 # SPDX-License-Identifier: MIT
 
 import pytest
@@ -38,3 +38,13 @@ def test_load_no_config_found_in_file(fs, create_file, load_file):
     fs.create_file(create_file)
     with pytest.raises(chipshot.exceptions.ConfigNotFound):
         chipshot.config.load(load_file)
+
+
+def test_custom_extension_enablement(fs):
+    """Confirm that an extension in the user config is recursively integrated."""
+
+    contents = b"[chipshot.extensions.yaml]\nstyle = 'hash'"
+    fs.create_file(".chipshot.toml", contents=contents)
+    config = chipshot.config.load()
+    assert "yaml" in config["extensions"]
+    assert "py" in config["extensions"]

@@ -2,7 +2,11 @@
 # Copyright 2022-2026 Kurt McKee <contactme@kurtmckee.org>
 # SPDX-License-Identifier: MIT
 
-from . import cli
+import sys
 
-if __name__ == "__main__":
-    cli.run()
+if sys.version_info >= (3, 11):
+    import tomllib
+else:  # Python < 3.11
+    import tomli as tomllib
+
+__all__ = ["tomllib"]

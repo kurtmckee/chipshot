@@ -1,0 +1,41 @@
+name: "📦 Publish"
+
+on:
+  push:
+    branches:
+      - "releases"
+
+jobs:
+  tag:
+    name: "Tag"
+    permissions:
+      contents: "write"
+    uses: "kurtmckee/github-workflows/.github/workflows/create-tag-and-release.yaml@cd7259964a4bc83f96ea88c713124866de418d55" # v1.8
+
+  build:
+    name: "Build"
+    needs:
+      - "tag"
+    permissions:
+      contents: "read"
+    uses: "kurtmckee/github-workflows/.github/workflows/build-python-package.yaml@cd7259964a4bc83f96ea88c713124866de418d55" # v1.8
+
+  publish:
+    name: "Publish"
+    needs:
+      - "build"
+    runs-on: "ubuntu-24.04"
+    environment: "PyPI"
+    permissions:
+      id-token: "write"
+    steps:
+      - name: "Download the built packages"
+        uses: "actions/download-artifact@37930b1c2abaa49bbe596cd826c3c89aef350131" # v7.0.0
+        with:
+          artifact-ids: "${{ needs.build.outputs.artifact-id }}"
+          path: "${{ needs.build.outputs.packages-path }}"
+
+      - name: "Publish package distributions to PyPI"
+        uses: "pypa/gh-action-pypi-publish@ed0c53931b1dc9bd32cbe73a98c7f6766f8a527e" # v1.13.0
+        with:
+          packages-dir: "${{ needs.build.outputs.packages-path }}"

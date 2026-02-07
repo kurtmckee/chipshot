@@ -10,3 +10,7 @@ trim_trailing_whitespace = true
 
 [{*.yml,*.yaml}]
 indent_size = 2
+
+# These two files contain YAML code that is indented with two spaces.
+[/{README.rst,assets/update_readme_pre_commit_example.py}]
+indent_size = unset

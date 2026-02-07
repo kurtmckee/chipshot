@@ -1,6 +1,6 @@
 ..
     This file is a part of Chipshot <https://github.com/kurtmckee/chipshot>
-    Copyright 2022-2025 Kurt McKee <contactme@kurtmckee.org>
+    Copyright 2022-2026 Kurt McKee <contactme@kurtmckee.org>
     SPDX-License-Identifier: MIT
 
 ..
@@ -22,6 +22,47 @@ Please see the fragment files in the `changelog.d directory`_.
 ..  _changelog.d directory: https://github.com/kurtmckee/chipshot/tree/main/changelog.d
 
 ..  scriv-insert-here
+
+.. _changelog-0.9.0:
+
+0.9.0 - 2026-02-07
+==================
+
+Python support
+--------------
+
+*   Support Python 3.14.
+*   Drop support for Python 3.9.
+
+Default styles
+--------------
+
+*   Support ``.gd`` (Godot).
+*   Support ``.hx`` (Haxe).
+*   Support ``.ly`` (Lilypond).
+*   Support ``.tex`` (TeX/LaTeX).
+
+Fixed
+-----
+
+*   Support setting custom extension configurations in user config.
+
+    Previously, setting an extension (like ``chipshot.extensions.yaml``)
+    would erase all of the default extension configurations.
+
+Development
+-----------
+
+*   Migrate the flake8 configuration to ``pyproject.toml`` using
+    the `flake8-toml-config <https://github.com/kurtmckee/flake8-toml-config>`_ plugin.
+
+*   Test type annotations against all supported Python versions.
+*   Lock the GitHub CI runners to known, predictable versions.
+*   Fix and expand the project URLs listed in ``pyproject.toml``.
+*   Test package building on minimum Python and build system versions.
+*   Automatically maintain the pre-commit config example in the README.
+*   Introduce a compatibility module for conditional code.
+*   Use Trusted Publishing to publish new releases.
 
 .. _changelog-0.8.0:
 
