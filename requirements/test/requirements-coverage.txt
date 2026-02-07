@@ -1,2 +1,2 @@
-coverage==7.13.1 ; python_version >= "3.10"
-tomli==2.3.0 ; python_version >= "3.10" and python_full_version <= "3.11.0a6"
+coverage==7.13.3 ; python_version >= "3.10"
+tomli==2.4.0 ; python_version >= "3.10" and python_full_version <= "3.11.0a6"
