@@ -23,13 +23,11 @@ def test_render_header(default_config, rendered_file: pathlib.Path):
     expected = rendered_file.read_text()
     file = chipshot.shared.FileInfo(rendered_file, raw_contents=b"")
     rendered = chipshot.render.render_header(file, default_config)
-    fail_message = textwrap.dedent(
-        """
+    fail_message = textwrap.dedent("""
         Expected:
         {0}
 
         Rendered:
         {1}
-    """
-    ).format(expected, rendered)
+    """).format(expected, rendered)
     assert expected.startswith(rendered), fail_message

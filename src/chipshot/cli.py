@@ -30,16 +30,14 @@ from . import compare, config, logger, reader, render, writer
     "-c",
     "--config",
     "config_file",
-    help=textwrap.dedent(
-        """
+    help=textwrap.dedent("""
         The Chipshot configuration file to use.
 
         If unspecified, '.chipshot.toml' in the current directory will be loaded.
         If that doesn't exist, 'pyproject.toml' will be tried next.
 
         Chipshot's default values will always be loaded first.
-    """
-    ),
+    """),
     type=click.Path(exists=True, file_okay=True, dir_okay=False),
 )
 @click.option(

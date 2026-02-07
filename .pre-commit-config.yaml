@@ -30,7 +30,7 @@ repos:
         args: ["--py310-plus"]
 
   - repo: "https://github.com/psf/black-pre-commit-mirror"
-    rev: "831207fd435b47aeffdf6af853097e64322b4d44"  # frozen: 25.12.0
+    rev: "ea488cebbfd88a5f50b8bd95d5c829d0bb76feb8"  # frozen: 26.1.0
     hooks:
       - id: "black"
 
@@ -40,7 +40,7 @@ repos:
       - id: "isort"
 
   - repo: "https://github.com/pycqa/flake8"
-    rev: "d93590f5be797aabb60e3b09f2f52dddb02f349f"  # frozen: 7.3.0
+    rev: "c48217e1fc006c2dddd14df54e83b67da15de5cd"  # frozen: 7.3.0
     hooks:
       - id: "flake8"
         additional_dependencies:
@@ -48,12 +48,12 @@ repos:
           - "flake8-bugbear==25.11.29"
 
   - repo: "https://github.com/editorconfig-checker/editorconfig-checker"
-    rev: "6b2f463397341e827af22305a5630d26a9aedc21"  # frozen: v3.6.0
+    rev: "aa06cea887b26f372f9368aa53665266ec6dc364"  # frozen: v3.6.1
     hooks:
       - id: "editorconfig-checker"
 
   - repo: "https://github.com/python-jsonschema/check-jsonschema"
-    rev: "b035497fb64e3f9faa91e833331688cc185891e6"  # frozen: 0.36.0
+    rev: "ba8f7ac0e0c0d25bae15b628b634316e7d201db5"  # frozen: 0.36.1
     hooks:
       - id: "check-readthedocs"
       - id: "check-dependabot"
@@ -67,7 +67,7 @@ repos:
           - "github.com/wasilibs/go-shellcheck/cmd/shellcheck@4e7020840c303923eb1ab846fc446d77be892570"  # frozen: v0.11.1
 
   - repo: "https://github.com/kurtmckee/pre-commit-hooks"
-    rev: "e7a0fdfcf7fd4c549a32da19187adf3a0b279d4d"  # frozen: v1.0.0
+    rev: "44b638c826f1acd2ba2c5995db3156be60c5efea"  # frozen: v1.0.0
     hooks:
       - id: "verify-consistent-pyproject-toml-python-requirements"
 
