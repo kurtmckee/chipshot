@@ -1,0 +1,13 @@
+[chipshot]
+template = """
+The hashbang must always be the first line.
+All other headers must appear below that line.
+"""
+
+[chipshot.prologues.hashbang]
+pattern = "^#!.+$"
+#end
+
+[chipshot.extensions.js]
+prologue = "hashbang"
+#end

@@ -38,7 +38,9 @@ from . import compare, config, logger, reader, render, writer
 
         Chipshot's default values will always be loaded first.
     """),
-    type=click.Path(exists=True, file_okay=True, dir_okay=False),
+    type=click.Path(
+        exists=True, file_okay=True, dir_okay=False, path_type=pathlib.Path
+    ),
 )
 @click.option(
     "--update",
@@ -54,10 +56,13 @@ from . import compare, config, logger, reader, render, writer
 @click.argument(
     "paths",
     nargs=-1,
-    type=click.Path(exists=True, file_okay=True, dir_okay=True),
+    type=click.Path(exists=True, file_okay=True, dir_okay=True, path_type=pathlib.Path),
 )
 def run(
-    config_file: str | None, update: bool, verbose: bool, paths: tuple[str]
+    config_file: pathlib.Path | None,
+    update: bool,
+    verbose: bool,
+    paths: tuple[pathlib.Path],
 ) -> None:
     """Chipshot -- Set up game-winning headers!"""
 
@@ -73,7 +78,7 @@ def run(
         if config_file is None:
             configuration = config.load()
         else:
-            configuration = config.load(pathlib.Path(config_file))
+            configuration = config.load(config_file)
     except chipshot.exceptions.ConfigNotFound as error:
         log.error(error.args[0])
         raise click.exceptions.Exit(2)
@@ -130,14 +135,12 @@ def run(
 
 
 def _get_files(
-    paths: tuple[str], configuration: dict[str, typing.Any]
+    paths: tuple[pathlib.Path], configuration: dict[str, typing.Any]
 ) -> typing.Generator[pathlib.Path]:
     exclusions: list[pathlib.Path] = [
         pathlib.Path(exclusion) for exclusion in configuration.get("exclusions", [])
     ]
-    for path_string in paths:
-        path = pathlib.Path(path_string)
-
+    for path in paths:
         # Prepare for iteration.
         sub_paths: typing.Iterable[pathlib.Path]
         if path.is_file():

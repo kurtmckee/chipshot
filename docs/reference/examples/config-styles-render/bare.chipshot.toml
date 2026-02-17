@@ -1,0 +1,15 @@
+[chipshot]
+template = """
+First line
+Second line
+"""
+
+[chipshot.styles.full_rendering]
+block_prefix = "1111"
+line_prefix = "2222"
+line_suffix = "3333"
+block_suffix = "4444"
+#end
+
+[chipshot.extensions.txt]
+style = "full_rendering"

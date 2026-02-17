@@ -1,0 +1,21 @@
+[chipshot]
+template = """
+First line
+Second line
+"""
+
+#start
+[chipshot.styles.jinja-html]
+block_prefix = "{#\n"
+line_prefix = "    "
+block_suffix = "\n#}"
+
+[chipshot.styles.mako-html]
+line_prefix = "## "
+
+[chipshot.extensions."jinja.html"]
+style = "jinja-html"
+
+[chipshot.extensions."mako.html"]
+style = "mako-html"
+#end

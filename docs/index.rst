@@ -79,6 +79,7 @@ Reference
 ..  toctree::
     :maxdepth: 1
 
+    reference/configuration
     reference/boms
     changelog
     license
