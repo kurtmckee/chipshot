@@ -236,6 +236,7 @@ prologue = "xml_declaration"
 
 [interpreters]
 bash = "shell"
+gorun = "go"
 node = "javascript"
 nodejs = "javascript"
 perl = "perl"
@@ -247,6 +248,10 @@ sh = "shell"
 
 # Types
 # -----
+
+[types.go]
+prologue = "hashbang"
+style = "slash-slash"
 
 [types.javascript]
 prologue = "hashbang"
