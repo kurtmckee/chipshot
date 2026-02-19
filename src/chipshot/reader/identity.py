@@ -38,16 +38,16 @@ def handle(info: FileInfo, config: dict[str, typing.Any]) -> None:
             info.identity = config["interpreters"][name]
             return
 
-        # Look for a version-less name.
-        name_without_version = name.rstrip("0123456789.")
-        if name_without_version in config["interpreters"]:
-            log.debug(f"{info.path}: Found versioned interpreter '{name}'")
-            info.identity = config["interpreters"][name_without_version]
-            return
-
-        # Try removing the extension (such as "python.exe" on Windows).
+        # Try removing the extension (such as ".exe" on Windows).
         stem = path.stem
         if stem in config["interpreters"]:
             log.debug(f"{info.path}: Found base interpreter '{name}'")
             info.identity = config["interpreters"][stem]
+            return
+
+        # Look for a version-less name.
+        name_without_version = stem.rstrip("0123456789.")
+        if name_without_version in config["interpreters"]:
+            log.debug(f"{info.path}: Found versioned interpreter '{name}'")
+            info.identity = config["interpreters"][name_without_version]
             return
