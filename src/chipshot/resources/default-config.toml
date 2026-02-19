@@ -117,6 +117,10 @@ style = "slash-slash"
 prologue = "css-charset"
 style = "slash-star"
 
+[extensions.fish]
+prologue = "hashbang"
+style = "hash"
+
 [extensions.gd]
 style = "hash"
 
@@ -230,20 +234,28 @@ prologue = "xhtml_declaration_and_doctype"
 style = "xml"
 prologue = "xml_declaration"
 
+[extensions.zsh]
+style = "hash"
+prologue = "hashbang"
+
 
 # Interpreters
 # ------------
 
 [interpreters]
 bash = "shell"
+fish = "shell"
 gorun = "go"
 node = "javascript"
 nodejs = "javascript"
 perl = "perl"
+powershell = "powershell"
 pwsh = "powershell"
 python = "python"
+rscript = "r"
 ruby = "ruby"
 sh = "shell"
+zsh = "shell"
 
 
 # Types
@@ -267,6 +279,10 @@ style = "hash"
 
 [types.python]
 prologue = "hashbang-with-encoding"
+style = "hash"
+
+[types.r]
+prologue = "hashbang"
 style = "hash"
 
 [types.ruby]

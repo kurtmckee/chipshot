@@ -19,7 +19,14 @@ import chipshot.reader.identity
         pytest.param("#!/usr/bin/python", "python", id="base executable name"),
         pytest.param("#!/usr/bin/python3.11", "python", id="trailing version"),
         pytest.param("#!/usr/bin/env python", "python", id="env"),
-        pytest.param(r"#!C:\Program Files\Python39\python.exe", "python", id="windows"),
+        pytest.param(
+            r'#!"C:\Program Files\Python39\python3.9.exe"', "python", id="windows"
+        ),
+        pytest.param(
+            "#!/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe -File",
+            "powershell",
+            id="language-powershell",
+        ),
         # Loop exhaustion
         pytest.param("#!env unknown -c", "", id="loop exhaustion"),
     ),
