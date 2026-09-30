@@ -39,7 +39,7 @@ def load(path: str | pathlib.Path | None = None) -> dict[str, t.Any]:
     if isinstance(path, str):
         path = pathlib.Path(path)
 
-    custom_config = {}
+    custom_config: dict[str, t.Any] = {}
     if path is not None:
         log.debug(f"Loading config file '{path}'")
         custom_config = _load_toml(path)

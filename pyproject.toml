@@ -70,6 +70,14 @@ strict = true
 sqlite_cache = true
 
 
+# pyrefly
+# -------
+
+[tool.pyrefly]
+project-includes = ["src/"]
+preset = "strict"
+
+
 # pytest
 # ------
 
