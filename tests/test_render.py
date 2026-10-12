@@ -20,7 +20,7 @@ rendered_files = [
 @pytest.mark.parametrize("rendered_file", rendered_files)
 def test_render_header(default_config, rendered_file: pathlib.Path):
     default_config.update({"template_path": str(rendered_file.parent / "template.txt")})
-    expected = rendered_file.read_text()
+    expected = rendered_file.read_text(encoding="utf-8")
     file = chipshot.shared.FileInfo(rendered_file, raw_contents=b"")
     rendered = chipshot.render.render_header(file, default_config)
     fail_message = textwrap.dedent("""

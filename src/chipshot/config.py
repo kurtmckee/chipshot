@@ -8,10 +8,10 @@ import copy
 import importlib.resources as importlib_resources
 import logging
 import pathlib
+import tomllib
 import typing as t
 
 from . import exceptions, resources
-from ._compat.py310 import tomllib
 from .shared import FileInfo
 
 log = logging.getLogger(__name__)
