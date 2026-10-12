@@ -20,18 +20,18 @@ jobs:
       fail-fast: false
       matrix:
         runner:
-          - "ubuntu-24.04"
+          - "ubuntu-26.04"
           - "macos-15"
           - "windows-2025"
 
         include:
           # These values will be applied to all runners listed above.
           - cpythons:
-              - "3.10"
               - "3.11"
               - "3.12"
               - "3.13"
               - "3.14"
+              - "3.15"
             cache-paths:
               - ".mypy_cache/"
             cache-key-hash-files:

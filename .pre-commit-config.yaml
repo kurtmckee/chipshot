@@ -2,7 +2,7 @@ ci:
   autoupdate_schedule: "quarterly"
 
 default_language_version:
-  python: "python3.13"
+  python: "python3.15"
 
 repos:
   - repo: "meta"
@@ -26,8 +26,8 @@ repos:
     rev: "75992aaa40730136014f34227e0135f63fc951b4"  # frozen: v3.21.2
     hooks:
       - id: "pyupgrade"
-        name: "Enforce Python 3.10+ idioms"
-        args: ["--py310-plus"]
+        name: "Enforce Python 3.11+ idioms"
+        args: ["--py311-plus"]
 
   - repo: "https://github.com/psf/black-pre-commit-mirror"
     rev: "4160603246a6b365d4a2af661c6d71b0a0f50478"  # frozen: 26.5.1
@@ -40,11 +40,11 @@ repos:
       - id: "isort"
 
   - repo: "https://github.com/pycqa/flake8"
-    rev: "cfbbfdeb2391c14a37e101e92a77f54f329e1726"  # frozen: 7.4.1
+    rev: "c48217e1fc006c2dddd14df54e83b67da15de5cd"  # frozen: 7.3.0
     hooks:
       - id: "flake8"
         additional_dependencies:
-          - "flake8-toml-config==1.0.0"
+          - "flake8-toml-config==1.1.0"
           - "flake8-bugbear==26.9.30"
 
   - repo: "https://github.com/editorconfig-checker/editorconfig-checker"
@@ -53,7 +53,7 @@ repos:
       - id: "editorconfig-checker"
 
   - repo: "https://github.com/python-jsonschema/check-jsonschema"
-    rev: "4f85d46a92dc17713078e5de73f8a13190edf6fc"  # frozen: 0.38.2
+    rev: "12e63946db2c5cfcc9030fac21c3883ba88c6ed8"  # frozen: 0.38.0
     hooks:
       - id: "check-readthedocs"
       - id: "check-dependabot"
@@ -67,7 +67,7 @@ repos:
           - "github.com/wasilibs/go-shellcheck/cmd/shellcheck@4e7020840c303923eb1ab846fc446d77be892570"  # frozen: v0.11.1
 
   - repo: "https://github.com/kurtmckee/pre-commit-hooks"
-    rev: "e7a0fdfcf7fd4c549a32da19187adf3a0b279d4d"  # frozen: v1.0.0
+    rev: "44b638c826f1acd2ba2c5995db3156be60c5efea"  # frozen: v1.0.0
     hooks:
       - id: "verify-consistent-pyproject-toml-python-requirements"
 
