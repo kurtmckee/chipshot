@@ -1,4 +1,4 @@
-ast-serialize==0.13.0 ; python_version >= "3.11"
+ast-serialize==0.13.1 ; python_version >= "3.11"
 librt==0.16.0 ; python_version >= "3.11" and platform_python_implementation != "PyPy"
 mypy-extensions==1.1.0 ; python_version >= "3.11"
 mypy==2.4.0 ; python_version >= "3.11"
